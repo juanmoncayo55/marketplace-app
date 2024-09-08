@@ -2,13 +2,16 @@ import React, {useState} from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import {Heading, Text, FormControl, Input, Box, Stack, VStack, HStack, Button, Pressable, Icon, Link} from "native-base";
 import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
+import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../styles/globalStyles";
 
 const Login = () => {
-	const [showPass, setShowPass] = useState(true)
+	const [showPass, setShowPass] = useState(true);
+
+	//Navigation
+	const navigation = useNavigation();
 
 	return (
-		<ScrollView contentContainerStyle={{height: "100%", flex: 1}}>
 		<View style={[globalStyles.contenedor, globalStyles.bg33907C]}>
 			<Box style={styles.contenido}>
 				<VStack mb="16">
@@ -73,13 +76,14 @@ const Login = () => {
 					<Text color="white" fontSize="lg">
 						Don’t have an account?{" "}
 					</Text>
-					<Pressable>
+					<Pressable
+						onPress={() => navigation.navigate("SignUp")}
+					>
 						<Text color="white" fontSize="lg" fontWeight="bold">Sign up</Text>
 					</Pressable>
 				</Box>
 			</Box>
 		</View>
-			</ScrollView>
 	)
 }
 
