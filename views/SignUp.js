@@ -10,7 +10,6 @@ const SignUp = () => {
 
 	//Navigation
 	const navigation = useNavigation();
-	console.log(navigation);
 	return (
 		<SafeAreaView style={[globalStyles.contenedor, globalStyles.bg33907C]}>
 			<ScrollView style={{height: "100%"}}>
@@ -122,7 +121,7 @@ const SignUp = () => {
 						</Stack>
 					</FormControl>
 
-					<Button style={globalStyles.boton} rounded="full" mt="9">
+					<Button style={globalStyles.boton} rounded="full" mt="9" onPress={() => navigation.navigate("AcountVerify")}>
 						<Text fontSize="xl" style={globalStyles.botonTexto}>Create</Text>
 					</Button>
 

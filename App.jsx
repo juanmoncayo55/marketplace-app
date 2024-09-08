@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //Vistas
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
+import AcountVerify from "./views/AcountVerify";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ const App = () => {
     <>
       <NativeBaseProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="SignUp">
+          <Stack.Navigator initialRouteName="AcountVerify">
             <Stack.Screen
               name="Login"
               component={Login}
@@ -31,6 +32,14 @@ const App = () => {
               component={SignUp}
               options={{
                 title: "Registrarme",
+                headerShown: false
+              }}
+            />
+            <Stack.Screen
+              name="AcountVerify"
+              component={AcountVerify}
+              options={{
+                title: "Verificar Cuenta",
                 headerShown: false
               }}
             />
