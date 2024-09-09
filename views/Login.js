@@ -63,7 +63,7 @@ const Login = () => {
 					</Stack>
 				</FormControl>
 
-				<Button style={globalStyles.boton} rounded="full" mt="9">
+				<Button style={globalStyles.boton} rounded="full" mt="9" onPress={() => navigation.navigate("Dashboard")}>
 					<Text fontSize="xl" style={globalStyles.botonTexto}>Log in</Text>
 				</Button>
 

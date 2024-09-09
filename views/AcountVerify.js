@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import {Heading, Text, FormControl, Input, Box, Stack, VStack, Button, Pressable, Icon} from "native-base";
 import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -13,7 +13,6 @@ const AcountVerify = () => {
 
 	return (
 		<View style={[globalStyles.contenedor, globalStyles.bg33907C]}>
-      <StatusBar barStyle="light-content" backgroundColor="#33907C" />
       <Box w="90%" mx="auto" mt="9" display="flex" flexDirection="row" justifyContent="flex-start">
 				<Pressable
 					p="1"
