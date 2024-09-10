@@ -6,6 +6,13 @@ const globalStyles = StyleSheet.create({
 	contenedor: {
 		flex: 1
 	},
+	contenido: {
+		width: "95%",
+		marginHorizontal: "2.5%",
+		paddingTop: 15,
+		marginBottom: 20,
+		flex: 1
+	},
 	input: {
 		width: "100%"
 	},

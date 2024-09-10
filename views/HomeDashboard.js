@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, StyleSheet, ImageBackground, Image, FlatList } from 'react-native';
 import { Box, Text, Heading, ScrollView, Stack, Button, HStack, VStack, Flex, Pressable, AspectRatio, Center} from "native-base";
+import data from "../data.js";
+import {useNavigation} from "@react-navigation/native";
 import globalStyles from "../styles/globalStyles";
 import CardProduct from "../components/CardProduct";
 
 const HomeDashboard = () => {
+	//React Navigation
+	const navigation = useNavigation();
+
 	return (
 		<View>
 			<ScrollView>
@@ -25,7 +30,7 @@ const HomeDashboard = () => {
 	      <View>
 		      <VStack>
 		      	<Flex direction="row" wrap="wrap" gap="0.5">
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Beverages", products: data.data.Bread})}>
 		      			<ImageBackground
 		      				source={require("../images/beverages.png")}
 		      				style={styles.imagen}
@@ -33,7 +38,7 @@ const HomeDashboard = () => {
 		      				<Text style={styles.textImage}>Beverages</Text>
 		      			</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Egg", products: data.data.egg})}>
 		      			<ImageBackground
 		      				source={require("../images/egg.png")}
 		      				style={styles.imagen}
@@ -41,7 +46,7 @@ const HomeDashboard = () => {
 		      			<Text style={styles.textImage}>Egg</Text>
 		      		</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Frozen Veg", products: data.data.frozen})}>
 		      			<ImageBackground
 		      				source={require("../images/Frozen.png")}
 		      				style={styles.imagen}
@@ -49,7 +54,7 @@ const HomeDashboard = () => {
 		      			<Text style={styles.textImage}>Frozen</Text>
 		      		</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Fruit", products: data.data.fruit})}>
 		      			<ImageBackground
 		      				source={require("../images/Fruit.png")}
 		      				style={styles.imagen}
@@ -57,7 +62,7 @@ const HomeDashboard = () => {
 		      			<Text style={styles.textImage}>Fruit</Text>
 		      		</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Home Care", products: data.data.homeCare})}>
 		      			<ImageBackground
 		      				source={require("../images/homecare.png")}
 		      				style={styles.imagen}
@@ -65,7 +70,7 @@ const HomeDashboard = () => {
 		      			<Text style={styles.textImage}>Homecare</Text>
 		      		</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Pet Care", products: data.data.petCare})}>
 		      			<ImageBackground
 		      				source={require("../images/petcare.png")}
 		      				style={styles.imagen}
@@ -73,7 +78,7 @@ const HomeDashboard = () => {
 		      			<Text style={styles.textImage}>Petcare</Text>
 		      		</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Vegetables", products: data.data.vegetables})}>
 		      			<ImageBackground
 		      				source={require("../images/vegetables.png")}
 		      				style={styles.imagen}
@@ -81,12 +86,12 @@ const HomeDashboard = () => {
 		      			<Text style={styles.textImage}>Vegetables</Text>
 		      		</ImageBackground>
 		      		</Pressable>
-		      		<Pressable>
+		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Home Care", products: data.data.homeCare})}>
 		      			<ImageBackground
 		      				source={require("../images/homecare.png")}
 		      				style={styles.imagen}
 		      			>
-		      			<Text style={styles.textImage}>Homecare</Text>
+		      			<Text style={styles.textImage}>Home Care</Text>
 		      		</ImageBackground>
 		      		</Pressable>
 		      	</Flex>
@@ -167,7 +172,7 @@ const HomeDashboard = () => {
 		  		>
 		      	{
 		      		[1,2,3,4].map(item => (
-		      			<Box maxW="55%" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
+		      			<Box key={item} maxW="55%" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
 		      				<Box>
 		      					<AspectRatio w="100%" ratio={16 / 10}>
 							        <Image source={{

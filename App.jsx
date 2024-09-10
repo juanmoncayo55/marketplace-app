@@ -11,11 +11,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import AcountVerify from "./views/AcountVerify";
+import CategoryProduct from "./views/CategoryProduct";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
 import OrderDashboard from "./views/OrderDashboard";
 import ProfileDashboard from "./views/ProfileDashboard";
+
+import HeaderDashboard from "./components/HeaderDashboard";
 
 //Styles
 import globalStyles from "./styles/globalStyles";
@@ -59,7 +62,6 @@ const DashboardTabs = () => {
           tabBarLabel: "Home",
           headerShown: true,
           header: ({ navigation, route, options }) => {
-            console.log(navigation, route, options);
             return (
               <View style={[globalStyles.bg33907C]}>
                 <Box style={styles.contenidoHeader}>
@@ -159,6 +161,21 @@ const App = () => {
               options={{
                 title: "Dashboard",
                 headerShown: false
+              }}
+            />
+            <StackN.Screen
+              name="CategoryProduct"
+              component={CategoryProduct}
+              options={{
+                title: "Categoria del Producto",
+                headerShown: true,
+                header: ({ navigation, route, options }) => (
+                  <HeaderDashboard
+                    navigation={navigation}
+                    route={route}
+                    options={options}
+                  />
+                )
               }}
             />
           </StackN.Navigator>
