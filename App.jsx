@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StatusBar, StyleSheet } from 'react-native';
-import { NativeBaseProvider, Icon, Box, Text, Stack,VStack,HStack, Heading, Pressable, Input } from "native-base";
+import { NativeBaseProvider, Icon, Box, Text, Stack,VStack,HStack, Heading, Pressable, Input, Flex, Button } from "native-base";
 import Ionicons  from "react-native-vector-icons/Ionicons";
+import FontAwesome  from "react-native-vector-icons/FontAwesome";
 
 //React Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -51,11 +52,12 @@ const DashboardTabs = () => {
         },
         headerShown: false,
         tabBarActiveTintColor: '#33907C',
-        tabBarInactiveTintColor: '#4F4F4F',
+        tabBarInactiveTintColor: '#4a4a4a',
         tabBarLabelStyle: {
           fontSize: 12,
         }
       })}
+      sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
     >
       <Tab.Screen name="HomeDashboard" component={HomeDashboard}
         options={{
@@ -79,7 +81,7 @@ const DashboardTabs = () => {
                         </Pressable>
                       </HStack>
                     </VStack>
-                    <VStack mt="7" mb="2">
+                    <VStack mt="4" mb="2">
                       <Input
                         placeholder="Search Product"
                         color="#4F4F4F"
@@ -102,7 +104,65 @@ const DashboardTabs = () => {
       />
       <Tab.Screen name="BrowserDashboard" component={BrowserDashboard}
         options={{
-          tabBarLabel: "Browse"
+          tabBarLabel: "Browse",
+          headerShown: true,
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+              <Box style={styles.contenidoHeader}>
+                <Stack>
+                  <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                    <HStack>
+                      <Heading color="white" size="xl">Browse</Heading>
+                    </HStack>
+                    <HStack space={3}>
+                      <Pressable>
+                        <Ionicons name="heart" size={26} color="white" />
+                      </Pressable>
+                      <Pressable>
+                        <Ionicons name="cart-sharp" size={26} color="white" />
+                      </Pressable>
+                    </HStack>
+                  </VStack>
+                  <VStack mt="4">
+                    <Input
+                      placeholder="Search Product"
+                      color="#4F4F4F"
+                      variant="rounded"
+                      style={globalStyles.input}
+                      placeholderTextColor="#4F4F4F"
+                      size="lg"
+                      bgColor="white"
+                      InputLeftElement={
+                        <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
+                      }
+                    />
+                  </VStack>
+                  <VStack>
+                    <Flex direction="row" justifyContent="space-between" mt="6" space="2" mb="2">
+                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
+                        color: "white",
+                        fontSize: "md"
+                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="sort-amount-desc" color="white" />}>            
+                        Sort by
+                      </Button>
+                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
+                        color: "white",
+                        fontSize: "md"
+                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="map-marker" color="white" />}>
+                        Location
+                      </Button>
+                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
+                        color: "white",
+                        fontSize: "md"
+                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="th-list" color="white" />}>
+                        Category
+                      </Button>
+                    </Flex>
+                  </VStack>
+                </Stack>
+              </Box>
+            </View>
+          )
         }}
       />
       <Tab.Screen name="StoreDashboard" component={StoreDashboard}
@@ -130,7 +190,7 @@ const App = () => {
       <NativeBaseProvider>
         <StatusBar barStyle="light-content" backgroundColor="#33907C" />
         <NavigationContainer>
-          <StackN.Navigator initialRouteName="Login">
+          <StackN.Navigator initialRouteName="Login" sceneContainerStyle={{backgroundColor: "#F6F9FF"}}>
             <StackN.Screen
               name="Login"
               component={Login}
