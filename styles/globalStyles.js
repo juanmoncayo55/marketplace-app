@@ -10,7 +10,6 @@ const globalStyles = StyleSheet.create({
 		width: "95%",
 		marginHorizontal: "2.5%",
 		paddingTop: 15,
-		marginBottom: 20,
 		flex: 1
 	},
 	input: {

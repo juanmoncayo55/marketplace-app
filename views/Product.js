@@ -91,6 +91,7 @@ const Product = () => {
 								<Pressable
 									style={styles.headerBtnIcon}
 									rounded="full"
+									onPress={() => navigation.navigate("Wishlist")}
 								>
 									<Box display="flex" flexDirection="row" flexWrap="wrap">
 										<FontAwesome name="heart-o" size={26} color="white" />

@@ -3,6 +3,7 @@ import { View, StatusBar, StyleSheet } from 'react-native';
 import { NativeBaseProvider, Icon, Box, Text, Stack,VStack,HStack, Heading, Pressable, Input, Flex, Button } from "native-base";
 import Ionicons  from "react-native-vector-icons/Ionicons";
 import FontAwesome  from "react-native-vector-icons/FontAwesome";
+import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
 
 //React Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -14,6 +15,7 @@ import SignUp from "./views/SignUp";
 import AcountVerify from "./views/AcountVerify";
 import CategoryProduct from "./views/CategoryProduct";
 import Product from "./views/Product";
+import Wishlist from "./views/Wishlist";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -255,6 +257,35 @@ const App = () => {
                     options={options}
                   />
                 )*/
+              }}
+            />
+            <StackN.Screen
+              name="Wishlist"
+              component={Wishlist}
+              options={{
+                title: "Wishlist",
+                headerShown: true,
+                header: ({ navigation, route, options }) => (
+                  <View style={[globalStyles.bg33907C]}>
+                    <Box style={styles.contenidoHeader}>
+                      <Flex direction="row" justifyContent="center" alignItems="center">
+                        <Box w="10%">
+                          <Pressable
+                            p="1"
+                            rounded="full"
+                            _pressed={{backgroundColor: 'emerald.700'}}
+                            onPress={() => navigation.goBack()}
+                          >
+                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+                          </Pressable>
+                        </Box>
+                        <Box w="90%" alignItems="center">
+                          <Heading color="white" size="lg">Wishlist</Heading>
+                        </Box>
+                      </Flex>
+                    </Box>
+                  </View>
+                )
               }}
             />
           </StackN.Navigator>
