@@ -13,6 +13,7 @@ import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import AcountVerify from "./views/AcountVerify";
 import CategoryProduct from "./views/CategoryProduct";
+import Product from "./views/Product";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -190,7 +191,10 @@ const App = () => {
       <NativeBaseProvider>
         <StatusBar barStyle="light-content" backgroundColor="#33907C" />
         <NavigationContainer>
-          <StackN.Navigator initialRouteName="Login" sceneContainerStyle={{backgroundColor: "#F6F9FF"}}>
+          <StackN.Navigator
+            initialRouteName="Login"
+            sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
+          >
             <StackN.Screen
               name="Login"
               component={Login}
@@ -236,6 +240,21 @@ const App = () => {
                     options={options}
                   />
                 )
+              }}
+            />
+            <StackN.Screen
+              name="Product"
+              component={Product}
+              options={{
+                title: "Producto",
+                headerShown: false,
+                /*header: ({ navigation, route, options }) => (
+                  <HeaderDashboard
+                    navigation={navigation}
+                    route={route}
+                    options={options}
+                  />
+                )*/
               }}
             />
           </StackN.Navigator>
