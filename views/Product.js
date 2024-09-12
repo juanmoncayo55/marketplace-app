@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import { NativeBaseProvider, Icon, Box, View, Text, Stack,VStack,HStack, Heading, Pressable, Input, Flex, Button } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+import { SliderBox } from "react-native-image-slider-box";
 import FontAwesome  from "react-native-vector-icons/FontAwesome";
 import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
 import globalStyles from "../styles/globalStyles";
 
-const Product = () => {
-	return (
-		<Stack style={{backgroundColor: "#F6F9FF", flex: 1}}>
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<ImageBackground
+//npm i megamaxs1234/react-native-image-slider-box 
+/*
+<SliderBox images={images} />
+<ImageBackground
 					source={require("../images/jean-cocacola.png")}
 					style={styles.imagen}
 				>
@@ -51,6 +52,63 @@ const Product = () => {
 						</HStack>
 					</Stack>
 				</ImageBackground>
+*/
+const Product = () => {
+	//React Navigation
+	const navigation = useNavigation();
+
+	const images = [
+    require('../images/jean-cocacola.png'),
+    require('../images/orange.png'),
+    require('../images/apple.png')
+  ]
+	return (
+		<Stack style={{backgroundColor: "#F6F9FF", flex: 1}}>
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<Box position="relative">
+					<SliderBox images={images} dotColor="#33907C" />
+					<View position="absolute">
+						<Stack style={styles.contenido} display="flex" flexDirection="row" justifyContent="space-between">
+							<HStack>
+								<Pressable
+									p="1"
+									style={styles.headerBtnIcon}
+									rounded="full"
+									onPress={() => navigation.goBack()}
+								>
+									<Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+								</Pressable>
+							</HStack>
+							<HStack space={3}>
+								<Pressable
+									style={styles.headerBtnIcon}
+									rounded="full"
+								>
+									<Box display="flex" flexDirection="row" flexWrap="wrap">
+										<FontAwesome name="share-alt" size={26} color="white" />
+									</Box>
+								</Pressable>
+								<Pressable
+									style={styles.headerBtnIcon}
+									rounded="full"
+								>
+									<Box display="flex" flexDirection="row" flexWrap="wrap">
+										<FontAwesome name="heart-o" size={26} color="white" />
+									</Box>
+								</Pressable>
+								<Pressable
+									style={styles.headerBtnIcon}
+									rounded="full"
+								>
+									<Box display="flex" flexDirection="row" flexWrap="wrap">
+										<FontAwesome name="ellipsis-v" size={26} color="white" />
+									</Box>
+								</Pressable>
+							</HStack>
+						</Stack>
+					</View>
+				</Box>
+				
 
 				<VStack bgColor="white" mb="3">
 					<Box style={styles.contenido} py="4">
@@ -181,7 +239,7 @@ const styles = StyleSheet.create({
   	justifyContent: "center",
   	alignItems: "center",
   	flexDirection: "row",
-  	backgroundColor: 'rgba(255, 255, 255, 0.4)'
+  	backgroundColor: 'rgba(255, 255, 255, 0.6)'
   },
   boxAvatarIcon: {
   	width: 40,

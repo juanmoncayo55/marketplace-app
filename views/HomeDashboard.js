@@ -12,10 +12,11 @@ const HomeDashboard = () => {
 
 	return (
 		<View>
-			<ScrollView>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				<ScrollView
 	        horizontal
 	        contentContainerStyle={{padding: 12, display: "flex", columnGap: 15}}
+	        showsVerticalScrollIndicator={false}
 	      >
 	      	{[1,2,3,4,5].map(item => (
 		      	<Box key={item} height="180" width="320" backgroundColor='#000000' color="black" rounded="xl" p="5" justifyContent="center" alignItems="flex-start">
@@ -115,6 +116,7 @@ const HomeDashboard = () => {
 	  			horizontal
 	  			contentContainerStyle={{display: "flex", columnGap: 10, paddingHorizontal: "3%", paddingRight: 120}}
 	  			mb="9"
+	  			showsHorizontalScrollIndicator={false}
 	  		>
 	      	<CardProduct />
 	      	<CardProduct />
@@ -143,6 +145,7 @@ const HomeDashboard = () => {
 	  			horizontal
 	  			contentContainerStyle={{display: "flex", columnGap: 10, paddingHorizontal: "3%", paddingRight: 120}}
 	  			mb="9"
+	  			showsHorizontalScrollIndicator={false}
 	  		>
 	      	<CardProduct />
 	      	<CardProduct />
@@ -168,6 +171,7 @@ const HomeDashboard = () => {
 	      	<View style={{position: "relative", top: -100, marginBottom: -80}}>
 		      <ScrollView
 		  			horizontal
+		  			showsHorizontalScrollIndicator={false}
 		  			contentContainerStyle={{display: "flex", columnGap: 10,paddingRight: 280, paddingHorizontal: "3%"}}
 		  		>
 		      	{
