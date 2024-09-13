@@ -16,7 +16,7 @@ const HomeDashboard = () => {
 				<ScrollView
 	        horizontal
 	        contentContainerStyle={{padding: 12, display: "flex", columnGap: 15}}
-	        showsVerticalScrollIndicator={false}
+	        showsHorizontalScrollIndicator={false}
 	      >
 	      	{[1,2,3,4,5].map(item => (
 		      	<Box key={item} height="180" width="320" backgroundColor='#000000' color="black" rounded="xl" p="5" justifyContent="center" alignItems="flex-start">
