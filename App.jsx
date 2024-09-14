@@ -18,6 +18,7 @@ import Product from "./views/Product";
 import Wishlist from "./views/Wishlist";
 import Cart from "./views/cart/Cart";
 import NewAddress from "./views/cart/NewAddress";
+import Payment from "./views/cart/Payment";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -33,6 +34,11 @@ const StackN = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const theme = extendTheme({
+  colors: {
+    amber: {
+      400: '#13B58C'
+    },
+  },
   fontConfig: {
     Helvetica: {
       400: {
@@ -233,7 +239,7 @@ const App = () => {
         <StatusBar barStyle="light-content" backgroundColor="#33907C" />
         <NavigationContainer>
           <StackN.Navigator
-            initialRouteName="NewAddress"
+            initialRouteName="Login"
             sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
           >
             <StackN.Screen
@@ -378,6 +384,35 @@ const App = () => {
                         </Box>
                         <Box w="90%" alignItems="center">
                           <Heading color="white" size="lg">Add a New address</Heading>
+                        </Box>
+                      </Flex>
+                    </Box>
+                  </View>
+                )
+              }}
+            />
+            <StackN.Screen
+              name="Payment"
+              component={Payment}
+              options={{
+                title: "Payment",
+                headerShown: true,
+                header: ({ navigation, route, options }) => (
+                  <View style={[globalStyles.bg33907C]}>
+                    <Box style={styles.contenidoHeader}>
+                      <Flex direction="row" justifyContent="center" alignItems="center">
+                        <Box w="10%">
+                          <Pressable
+                            p="1"
+                            rounded="full"
+                            _pressed={{backgroundColor: 'emerald.700'}}
+                            onPress={() => navigation.goBack()}
+                          >
+                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+                          </Pressable>
+                        </Box>
+                        <Box w="90%" alignItems="center">
+                          <Heading color="white" size="lg">Payment Option</Heading>
                         </Box>
                       </Flex>
                     </Box>

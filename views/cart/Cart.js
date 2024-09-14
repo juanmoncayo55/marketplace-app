@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import { Icon, Box, View, Text, Stack,VStack,HStack, Pressable, Image, Heading, Button } from "native-base";
 import Ionicons  from "react-native-vector-icons/Ionicons";
@@ -100,7 +100,7 @@ const Cart = () => {
 					</VStack>
 
 					<VStack bgColor="white"  w="100%" py="5">
-						<Button bgColor="#33907C" rounded="full" w="90%" mx="auto" py="3" isDisabled={true}>
+						<Button bgColor="#33907C" rounded="full" w="90%" mx="auto" py="3" onPress={() => navigation.navigate("Payment")}>
 							<Text fontSize={22} color="#FFF" fontWeight="semibold">Continue to Payment</Text>
 						</Button>
 					</VStack>
