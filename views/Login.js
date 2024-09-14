@@ -15,7 +15,7 @@ const Login = () => {
 		<View style={[globalStyles.contenedor, globalStyles.bg33907C]}>
 			<Box style={styles.contenido}>
 				<VStack mb="16">
-					<Heading size="2xl" color="white" fontWeight="medium" textAlign="center">Welcome to tradly</Heading>
+					<Heading fontFamily="productSans" fontWeight="600" fontSize="3xl" color="white" HeadingAlign="center">Welcome to tradly</Heading>
 				</VStack>
 
 				<VStack mb="12">

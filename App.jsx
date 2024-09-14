@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StatusBar, StyleSheet } from 'react-native';
-import { NativeBaseProvider, Icon, Box, Text, Stack,VStack,HStack, Heading, Pressable, Input, Flex, Button } from "native-base";
+import { NativeBaseProvider, extendTheme, Icon, Box, Text, Stack,VStack,HStack, Heading, Pressable, Input, Flex, Button } from "native-base";
 import Ionicons  from "react-native-vector-icons/Ionicons";
 import FontAwesome  from "react-native-vector-icons/FontAwesome";
 import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
@@ -17,6 +17,7 @@ import CategoryProduct from "./views/CategoryProduct";
 import Product from "./views/Product";
 import Wishlist from "./views/Wishlist";
 import Cart from "./views/cart/Cart";
+import NewAddress from "./views/cart/NewAddress";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -30,6 +31,43 @@ import globalStyles from "./styles/globalStyles";
 
 const StackN = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const theme = extendTheme({
+  fontConfig: {
+    Helvetica: {
+      400: {
+        normal: "Helvetica"
+      }
+    },
+    ProductSans: {
+      400: {
+        normal: "ProductSans-Regular"
+      },
+      700: {
+        normal: "ProductSans-Bold"
+      }
+    },
+    SFProText: {
+      400: {
+        normal: "SFProText-Regular"
+      },
+      600: {
+        normal: "SFProText-Semibold"
+      }
+    }
+  },
+  fonts: {
+    helvetica: "Helvetica",
+    productSans: "ProductSans",
+    SFProText: "SFProText"
+  }
+
+});
+/*fonts: {
+  heading: "Roboto",
+  body: "Roboto",
+  mono: "Roboto",
+}*/
 
 const DashboardTabs = () => {
   return (
@@ -191,11 +229,11 @@ const DashboardTabs = () => {
 const App = () => {
   return (
     <>
-      <NativeBaseProvider>
+      <NativeBaseProvider theme={theme}>
         <StatusBar barStyle="light-content" backgroundColor="#33907C" />
         <NavigationContainer>
           <StackN.Navigator
-            initialRouteName="Login"
+            initialRouteName="NewAddress"
             sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
           >
             <StackN.Screen
@@ -311,6 +349,35 @@ const App = () => {
                         </Box>
                         <Box w="90%" alignItems="center">
                           <Heading color="white" size="lg">My Cart</Heading>
+                        </Box>
+                      </Flex>
+                    </Box>
+                  </View>
+                )
+              }}
+            />
+            <StackN.Screen
+              name="NewAddress"
+              component={NewAddress}
+              options={{
+                title: "NewAddress",
+                headerShown: true,
+                header: ({ navigation, route, options }) => (
+                  <View style={[globalStyles.bg33907C]}>
+                    <Box style={styles.contenidoHeader}>
+                      <Flex direction="row" justifyContent="center" alignItems="center">
+                        <Box w="10%">
+                          <Pressable
+                            p="1"
+                            rounded="full"
+                            _pressed={{backgroundColor: 'emerald.700'}}
+                            onPress={() => navigation.goBack()}
+                          >
+                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+                          </Pressable>
+                        </Box>
+                        <Box w="90%" alignItems="center">
+                          <Heading color="white" size="lg">Add a New address</Heading>
                         </Box>
                       </Flex>
                     </Box>

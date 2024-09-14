@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import { Icon, Box, View, Text, Stack,VStack,HStack, Pressable, Image, Heading, Button } from "native-base";
 import Ionicons  from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
+
+	//Navigation
+	const navigation = useNavigation();
 
 	return (
 		<>
@@ -13,7 +17,7 @@ const Cart = () => {
 						<Box style={styles.contenido} py="2">
 							<Pressable _pressed={{
 								backgroundColor: 'rgba(0,0,0,.1)'
-							}} flexDirection="row" justifyContent="center" alignItems="center" rounded="full" py="2">
+							}} flexDirection="row" justifyContent="center" alignItems="center" rounded="full" py="2" onPress={() => navigation.navigate("NewAddress")}>
 								<Icon as={Ionicons} name="add-outline" size="md" color="#4F4F4F" />
 								<Text color="#4F4F4F" fontSize="lg" fontWeight="normal" ml="2">Add New Address</Text>
 							</Pressable>
