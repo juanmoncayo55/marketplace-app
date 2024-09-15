@@ -460,7 +460,7 @@ const App = () => {
                 headerShown: true,
                 header: ({ navigation, route, options }) => (
                   <View style={[globalStyles.bg33907C]}>
-                    <Box style={[styles.contenidoHeader, {paddingBottom: 50}]}>
+                    <Box style={styles.contenidoHeader}>
                       <Flex direction="row" justifyContent="center" alignItems="center">
                         <Box w="90%" alignItems="flex-start">
                           <Heading color="white" size="lg">Order Details</Heading>
@@ -472,7 +472,7 @@ const App = () => {
                             _pressed={{backgroundColor: 'emerald.700'}}
                             onPress={() => navigation.goBack()}
                           >
-                            <Icon as={MaterialIcons} name="close" size="xl" color="white" />
+                            <Icon as={Ionicons} name="close-sharp" size="xl" color="white" />
                           </Pressable>
                         </Box>
                       </Flex>
