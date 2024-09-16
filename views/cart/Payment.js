@@ -31,6 +31,8 @@ const { width, height } = Dimensions.get('window');
 const Payment = () => {
 	const [pago, setPago] = useState("");
 
+	const navigation = useNavigation();
+
 	return (
 		<Stack style={{backgroundColor: "#F6F9FF", flex: 1}}>
 			<ScrollView>
@@ -40,7 +42,7 @@ const Payment = () => {
 							renderSlides = {
 							  <>
 							    <View style={styles.viewBox}>
-							    	<Pressable style={styles.pressableCard} justifyContent="center" alignItems="center" w="90%" py="10" mt="5" _pressed={{backgroundColor: "rgba(0,0,0,.1)"}}>
+							    	<Pressable style={styles.pressableCard} justifyContent="center" alignItems="center" w="90%" py="10" mt="5" _pressed={{backgroundColor: "rgba(0,0,0,.1)"}} onPress={() => navigation.navigate("AddCard")}>
 							    		<Icon name="add-sharp" as={Ionicons} size="5xl" color="rgba(0,0,0,.20)" />
 							    		<Text fontFamily="productSans" fontWeight="400" fontSize="xl" color="rgba(0,0,0,.20)" mt="4">Add Payment Method</Text>
 							    	</Pressable>
@@ -140,7 +142,7 @@ const Payment = () => {
 				</VStack>
 
 				<VStack bgColor="white"  w="100%" py="5">
-					<Button bgColor="#33907C" rounded="full" w="90%" mx="auto" py="3" isDisabled={true}>
+					<Button bgColor="#33907C" rounded="full" w="90%" mx="auto" py="3" onPress={() => navigation.navigate("CheckoutSuccess")}>
 						<Text fontSize={22} color="#FFF" fontWeight="semibold">Checkout</Text>
 					</Button>
 				</VStack>

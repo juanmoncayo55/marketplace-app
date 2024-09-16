@@ -38,6 +38,7 @@ const Tab = createBottomTabNavigator();
 const theme = extendTheme({
   colors: {
     gradientCard: "linear-gradient(#F90, #212121)",
+    greenPrimary: "#33907C",
     amber: {
       400: '#13B58C'
     },
@@ -218,7 +219,29 @@ const DashboardTabs = () => {
       />
       <Tab.Screen name="StoreDashboard" component={StoreDashboard}
         options={{
-          tabBarLabel: "Store"
+          tabBarLabel: "Store",
+          headerShown: true,
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+            <Box style={styles.contenidoHeader}>
+              <Stack>
+                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                  <HStack>
+                    <Heading color="white" size="xl">My Store</Heading>
+                  </HStack>
+                  <HStack space={3}>
+                    <Pressable>
+                      <Ionicons name="heart" size={26} color="white" />
+                    </Pressable>
+                    <Pressable onPress={() => navigation.navigate("Cart")}>
+                      <Ionicons name="cart-sharp" size={26} color="white" />
+                    </Pressable>
+                  </HStack>
+                </VStack>
+              </Stack>
+            </Box>
+            </View>
+          )
         }}
       />
       <Tab.Screen name="OrderDashboard" component={OrderDashboard}
