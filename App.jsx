@@ -40,6 +40,7 @@ const theme = extendTheme({
   colors: {
     gradientCard: "linear-gradient(#F90, #212121)",
     greenPrimary: "#33907C",
+    clText: "#4f4f4f",
     amber: {
       400: '#13B58C'
     },
@@ -80,7 +81,7 @@ const theme = extendTheme({
   mono: "Roboto",
 }*/
 
-const DashboardTabs = () => {
+function DashboardTabs(){
   return (
     <Tab.Navigator
       //screenOptions={{ headerShown: false }}
@@ -110,6 +111,7 @@ const DashboardTabs = () => {
           fontSize: 12,
         }
       })}
+      initialRouteName="HomeDashboard"
       sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
     >
       <Tab.Screen name="HomeDashboard" component={HomeDashboard}

@@ -70,7 +70,10 @@ const CreateStore = () => {
 		</ScrollView>
 	)
 }
-
+/*
+	Falta agregar el react-native-chip-view a esta vista, ya esta instalado el modulo
+	npm install react-native-chip-view --save
+*/
 const styles = StyleSheet.create({
 	contenido: {
     width: "90%",
