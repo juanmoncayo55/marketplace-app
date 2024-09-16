@@ -21,6 +21,7 @@ import NewAddress from "./views/cart/NewAddress";
 import Payment from "./views/cart/Payment";
 import AddCard from "./views/cart/AddCard";
 import CheckoutSuccess from "./views/cart/CheckoutSuccess";
+import CreateStore from "./views/store/CreateStore";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -497,6 +498,35 @@ const App = () => {
                           >
                             <Icon as={Ionicons} name="close-sharp" size="xl" color="white" />
                           </Pressable>
+                        </Box>
+                      </Flex>
+                    </Box>
+                  </View>
+                )
+              }}
+            />
+            <StackN.Screen
+              name="CreateStore"
+              component={CreateStore}
+              options={{
+                title: "CreateStore",
+                headerShown: true,
+                header: ({ navigation, route, options }) => (
+                  <View style={[globalStyles.bg33907C]}>
+                    <Box style={styles.contenidoHeader}>
+                      <Flex direction="row" justifyContent="center" alignItems="center">
+                        <Box w="10%">
+                          <Pressable
+                            p="1"
+                            rounded="full"
+                            _pressed={{backgroundColor: 'emerald.700'}}
+                            onPress={() => navigation.goBack()}
+                          >
+                            <Icon as={Ionicons} name="close-sharp" size="xl" color="white" />
+                          </Pressable>
+                        </Box>
+                        <Box w="90%" alignItems="center">
+                          <Heading color="white" size="lg">My Store</Heading>
                         </Box>
                       </Flex>
                     </Box>
