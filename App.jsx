@@ -22,6 +22,7 @@ import Payment from "./views/cart/Payment";
 import AddCard from "./views/cart/AddCard";
 import CheckoutSuccess from "./views/cart/CheckoutSuccess";
 import CreateStore from "./views/store/CreateStore";
+import AddProduct from "./views/store/AddProduct";
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -39,6 +40,7 @@ const Tab = createBottomTabNavigator();
 const theme = extendTheme({
   colors: {
     gradientCard: "linear-gradient(#F90, #212121)",
+    bgViews: "#F6F9FF",
     greenPrimary: "#33907C",
     clText: "#4f4f4f",
     amber: {
@@ -529,6 +531,34 @@ const App = () => {
                         </Box>
                         <Box w="90%" alignItems="center">
                           <Heading color="white" size="lg">My Store</Heading>
+                        </Box>
+                      </Flex>
+                    </Box>
+                  </View>
+                )
+              }}
+            />
+            <StackN.Screen
+              name="AddProduct"
+              component={AddProduct}
+              options= {{
+                headerShown: true,
+                header: ({ navigation, route, options }) => (
+                  <View style={[globalStyles.bg33907C]}>
+                    <Box style={styles.contenidoHeader}>
+                      <Flex direction="row" justifyContent="center" alignItems="center">
+                        <Box w="10%">
+                          <Pressable
+                            p="1"
+                            rounded="full"
+                            _pressed={{backgroundColor: 'emerald.700'}}
+                            onPress={() => navigation.goBack()}
+                          >
+                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+                          </Pressable>
+                        </Box>
+                        <Box w="90%" alignItems="center">
+                          <Heading color="white" size="lg">Add Product</Heading>
                         </Box>
                       </Flex>
                     </Box>

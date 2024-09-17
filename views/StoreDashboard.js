@@ -88,6 +88,7 @@ const StoreDashboard = () => {
 					px="16"
 					py="2"
 					mt="9"
+					onPress={() => navigation.navigate("AddProduct")}
 				>
 	  			<Text color="greenPrimary" fontFamily="SFProText" fontWeight="semibold" fontSize="xl">Add Product</Text>
 	  		</Button>
