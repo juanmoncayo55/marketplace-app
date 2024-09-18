@@ -108,7 +108,7 @@ function DashboardTabs(){
         },
         headerShown: false,
         tabBarActiveTintColor: '#33907C',
-        tabBarInactiveTintColor: '#4a4a4a',
+        tabBarInactiveTintColor: 'rgba(79,79,79,.5)',
         tabBarLabelStyle: {
           fontSize: 12,
         }
