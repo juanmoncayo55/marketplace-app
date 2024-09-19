@@ -1,8 +1,11 @@
 import React from 'react'
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { View, Box, Heading, Text, Badge, Stack, HStack, VStack, Button, AspectRatio, Image } from "native-base";
 
 const OrderDashboard = () => {
+	const { width, height } = Dimensions.get("window");
+
+	console.log(width, height);
 	return (
 		<View bgColor="bgViews" style={styles.flex}>
 			<ScrollView style={styles.flex}>
@@ -14,14 +17,14 @@ const OrderDashboard = () => {
 					[1,2,3,4,5,6,7,8,9].map(item => (
 
 						<View key={item} bgColor="white" py="3" mb="3">
-							<Stack style={styles.contenido} flexDirection="row" align="center">
-								<HStack mr="2">
-									<AspectRatio>
-										<Image source={require("../images/jean-cocacola2.png")} alt="Jean" height="100%" width="100%" resizeMode="cover" rounded="lg" />
+							<Stack style={styles.contenido} flexDirection="row" align="center" flexWrap="wrap" maxW={width}>
+								<HStack mr="2" flex=".7">
+									<AspectRatio w="full">
+										<Image source={require("../images/jean-cocacola2.png")} alt="Jean" height={20} width={20} resizeMode="cover" rounded="lg" />
 									</AspectRatio>
 								</HStack>
-								<HStack flexDirection="column" alignSelf="center">
-									<Text fontSize="lg" color="titleBold" fontFamily="SFProText" fontWeight="semibold" isTruncated={true} maxW="110px" w="100%">Coca ColaColaColaColaColaCola</Text>
+								<HStack flexDirection="column" alignSelf="center" flex="1">
+									<Text fontSize="md" color="titleBold" fontFamily="SFProText" fontWeight="semibold" isTruncated={true} maxW="110px" w="100%">Coca ColaColaColaColaColaCola</Text>
 									<View flexDirection="row" gap={2} alignItems="center">
 										<Text color="#33907C" fontSize="lg" fontWeight="extrabold">$25</Text>
 										<Box flexDirection="row" gap={1}>
@@ -39,7 +42,7 @@ const OrderDashboard = () => {
 										py="1"
 										alignSelf="flex-end"
 									>
-										<Text color="greenPrimary" fontFamily="SFProText" fontWeight="semibold" fontSize="sm" w="full">Payment confirmed</Text>
+										<Text color="greenPrimary" fontFamily="SFProText" fontWeight="semibold" fontSize="sm" w="full">Confirmed Pay</Text>
 									</Button>
 								</HStack>
 							</Stack>
