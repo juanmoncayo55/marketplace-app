@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView, Image } from 'react-native'
+import { View, StyleSheet, ScrollView, Image, Dimensions } from 'react-native'
 import { Box, Text, Heading, Stack, VStack, HStack, AspectRatio} from "native-base";
 import {useNavigation} from "@react-navigation/native";
 import data from "../browseData";
