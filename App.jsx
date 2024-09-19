@@ -43,6 +43,7 @@ const theme = extendTheme({
     bgViews: "#F6F9FF",
     greenPrimary: "#33907C",
     clText: "#4f4f4f",
+    titleBold: "#212121",
     amber: {
       400: '#13B58C'
     },
@@ -82,186 +83,6 @@ const theme = extendTheme({
   body: "Roboto",
   mono: "Roboto",
 }*/
-
-function DashboardTabs(){
-  return (
-    <Tab.Navigator
-      //screenOptions={{ headerShown: false }}
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          size=23;
-          if (route.name === 'HomeDashboard') {
-            iconName = "home-sharp"
-          } else if (route.name === 'BrowserDashboard') {
-            iconName = "search-sharp"
-          } else if (route.name === 'StoreDashboard') {
-            iconName = "storefront-sharp"
-          } else if (route.name === 'OrderDashboard') {
-            iconName = "reorder-four-sharp"
-          } else if (route.name === 'ProfileDashboard') {
-            iconName = "person-sharp"
-          }
-
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} fontSize="xl" color={color} />;
-        },
-        headerShown: false,
-        tabBarActiveTintColor: '#33907C',
-        tabBarInactiveTintColor: 'rgba(79,79,79,.5)',
-        tabBarLabelStyle: {
-          fontSize: 12,
-        }
-      })}
-      initialRouteName="HomeDashboard"
-      sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
-    >
-      <Tab.Screen name="HomeDashboard" component={HomeDashboard}
-        options={{
-          tabBarLabel: "Home",
-          headerShown: true,
-          header: ({ navigation, route, options }) => {
-            return (
-              <View style={[globalStyles.bg33907C]}>
-                <Box style={styles.contenidoHeader}>
-                  <Stack>
-                    <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                      <HStack>
-                        <Heading color="white" size="xl">Groceries</Heading>
-                      </HStack>
-                      <HStack space={3}>
-                        <Pressable>
-                          <Ionicons name="heart" size={26} color="white" />
-                        </Pressable>
-                        <Pressable onPress={() => navigation.navigate("Cart")}>
-                          <Ionicons name="cart-sharp" size={26} color="white" />
-                        </Pressable>
-                      </HStack>
-                    </VStack>
-                    <VStack mt="4" mb="2">
-                      <Input
-                        placeholder="Search Product"
-                        color="#4F4F4F"
-                        variant="rounded"
-                        style={globalStyles.input}
-                        placeholderTextColor="#4F4F4F"
-                        size="lg"
-                        bgColor="white"
-                        InputLeftElement={
-                          <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
-                        }
-                      />
-                    </VStack>
-                  </Stack>
-                </Box>
-              </View>
-            )
-          }
-        }}
-      />
-      <Tab.Screen name="BrowserDashboard" component={BrowserDashboard}
-        options={{
-          tabBarLabel: "Browse",
-          headerShown: true,
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-              <Box style={styles.contenidoHeader}>
-                <Stack>
-                  <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                    <HStack>
-                      <Heading color="white" size="xl">Browse</Heading>
-                    </HStack>
-                    <HStack space={3}>
-                      <Pressable>
-                        <Ionicons name="heart" size={26} color="white" />
-                      </Pressable>
-                      <Pressable onPress={() => navigation.navigate("Cart")}>
-                        <Ionicons name="cart-sharp" size={26} color="white" />
-                      </Pressable>
-                    </HStack>
-                  </VStack>
-                  <VStack mt="4">
-                    <Input
-                      placeholder="Search Product"
-                      color="#4F4F4F"
-                      variant="rounded"
-                      style={globalStyles.input}
-                      placeholderTextColor="#4F4F4F"
-                      size="lg"
-                      bgColor="white"
-                      InputLeftElement={
-                        <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
-                      }
-                    />
-                  </VStack>
-                  <VStack>
-                    <Flex direction="row" justifyContent="space-between" mt="6" space="2" mb="2">
-                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
-                        color: "white",
-                        fontSize: "md"
-                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="sort-amount-desc" color="white" />}>            
-                        Sort by
-                      </Button>
-                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
-                        color: "white",
-                        fontSize: "md"
-                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="map-marker" color="white" />}>
-                        Location
-                      </Button>
-                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
-                        color: "white",
-                        fontSize: "md"
-                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="th-list" color="white" />}>
-                        Category
-                      </Button>
-                    </Flex>
-                  </VStack>
-                </Stack>
-              </Box>
-            </View>
-          )
-        }}
-      />
-      <Tab.Screen name="StoreDashboard" component={StoreDashboard}
-        options={{
-          tabBarLabel: "Store",
-          headerShown: true,
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-            <Box style={styles.contenidoHeader}>
-              <Stack>
-                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                  <HStack>
-                    <Heading color="white" size="xl">My Store</Heading>
-                  </HStack>
-                  <HStack space={3}>
-                    <Pressable>
-                      <Ionicons name="heart" size={26} color="white" />
-                    </Pressable>
-                    <Pressable onPress={() => navigation.navigate("Cart")}>
-                      <Ionicons name="cart-sharp" size={26} color="white" />
-                    </Pressable>
-                  </HStack>
-                </VStack>
-              </Stack>
-            </Box>
-            </View>
-          )
-        }}
-      />
-      <Tab.Screen name="OrderDashboard" component={OrderDashboard}
-        options={{
-          tabBarLabel: "Order History"
-        }}
-      />
-      <Tab.Screen name="ProfileDashboard" component={ProfileDashboard}
-        options={{
-          tabBarLabel: "Profile"
-        }}
-      />
-    </Tab.Navigator>
-  )
-}
 
 const App = () => {
   return (
@@ -570,6 +391,208 @@ const App = () => {
         </NavigationContainer>
       </NativeBaseProvider>
     </>
+  )
+}
+
+function DashboardTabs(){
+  return (
+    <Tab.Navigator
+      //screenOptions={{ headerShown: false }}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          size=23;
+          if (route.name === 'HomeDashboard') {
+            iconName = "home-sharp"
+          } else if (route.name === 'BrowserDashboard') {
+            iconName = "search-sharp"
+          } else if (route.name === 'StoreDashboard') {
+            iconName = "storefront-sharp"
+          } else if (route.name === 'OrderDashboard') {
+            iconName = "reorder-four-sharp"
+          } else if (route.name === 'ProfileDashboard') {
+            iconName = "person-sharp"
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} fontSize="xl" color={color} />;
+        },
+        headerShown: false,
+        tabBarActiveTintColor: '#33907C',
+        tabBarInactiveTintColor: 'rgba(79,79,79,.5)',
+        tabBarLabelStyle: {
+          fontSize: 12,
+        }
+      })}
+      initialRouteName="HomeDashboard"
+      sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
+    >
+      <Tab.Screen name="HomeDashboard" component={HomeDashboard}
+        options={{
+          tabBarLabel: "Home",
+          headerShown: true,
+          header: ({ navigation, route, options }) => {
+            return (
+              <View style={[globalStyles.bg33907C]}>
+                <Box style={styles.contenidoHeader}>
+                  <Stack>
+                    <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                      <HStack>
+                        <Heading color="white" size="xl">Groceries</Heading>
+                      </HStack>
+                      <HStack space={3}>
+                        <Pressable>
+                          <Ionicons name="heart" size={26} color="white" />
+                        </Pressable>
+                        <Pressable onPress={() => navigation.navigate("Cart")}>
+                          <Ionicons name="cart-sharp" size={26} color="white" />
+                        </Pressable>
+                      </HStack>
+                    </VStack>
+                    <VStack mt="4" mb="2">
+                      <Input
+                        placeholder="Search Product"
+                        color="#4F4F4F"
+                        variant="rounded"
+                        style={globalStyles.input}
+                        placeholderTextColor="#4F4F4F"
+                        size="lg"
+                        bgColor="white"
+                        InputLeftElement={
+                          <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
+                        }
+                      />
+                    </VStack>
+                  </Stack>
+                </Box>
+              </View>
+            )
+          }
+        }}
+      />
+      <Tab.Screen name="BrowserDashboard" component={BrowserDashboard}
+        options={{
+          tabBarLabel: "Browse",
+          headerShown: true,
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+              <Box style={styles.contenidoHeader}>
+                <Stack>
+                  <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                    <HStack>
+                      <Heading color="white" size="xl">Browse</Heading>
+                    </HStack>
+                    <HStack space={3}>
+                      <Pressable>
+                        <Ionicons name="heart" size={26} color="white" />
+                      </Pressable>
+                      <Pressable onPress={() => navigation.navigate("Cart")}>
+                        <Ionicons name="cart-sharp" size={26} color="white" />
+                      </Pressable>
+                    </HStack>
+                  </VStack>
+                  <VStack mt="4">
+                    <Input
+                      placeholder="Search Product"
+                      color="#4F4F4F"
+                      variant="rounded"
+                      style={globalStyles.input}
+                      placeholderTextColor="#4F4F4F"
+                      size="lg"
+                      bgColor="white"
+                      InputLeftElement={
+                        <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
+                      }
+                    />
+                  </VStack>
+                  <VStack>
+                    <Flex direction="row" justifyContent="space-between" mt="6" space="2" mb="2">
+                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
+                        color: "white",
+                        fontSize: "md"
+                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="sort-amount-desc" color="white" />}>            
+                        Sort by
+                      </Button>
+                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
+                        color: "white",
+                        fontSize: "md"
+                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="map-marker" color="white" />}>
+                        Location
+                      </Button>
+                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
+                        color: "white",
+                        fontSize: "md"
+                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="th-list" color="white" />}>
+                        Category
+                      </Button>
+                    </Flex>
+                  </VStack>
+                </Stack>
+              </Box>
+            </View>
+          )
+        }}
+      />
+      <Tab.Screen name="StoreDashboard" component={StoreDashboard}
+        options={{
+          tabBarLabel: "Store",
+          headerShown: true,
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+            <Box style={styles.contenidoHeader}>
+              <Stack>
+                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                  <HStack>
+                    <Heading color="white" size="xl">My Store</Heading>
+                  </HStack>
+                  <HStack space={3}>
+                    <Pressable>
+                      <Ionicons name="heart" size={26} color="white" />
+                    </Pressable>
+                    <Pressable onPress={() => navigation.navigate("Cart")}>
+                      <Ionicons name="cart-sharp" size={26} color="white" />
+                    </Pressable>
+                  </HStack>
+                </VStack>
+              </Stack>
+            </Box>
+            </View>
+          )
+        }}
+      />
+      <Tab.Screen name="OrderDashboard" component={OrderDashboard}
+        options={{
+          tabBarLabel: "Order History",
+          headerShown: true,
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+            <Box style={styles.contenidoHeader}>
+              <Stack>
+                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                  <HStack>
+                    <Heading color="white" size="xl">Order History</Heading>
+                  </HStack>
+                  <HStack space={3}>
+                    <Pressable>
+                      <Ionicons name="heart" size={26} color="white" />
+                    </Pressable>
+                    <Pressable onPress={() => navigation.navigate("Cart")}>
+                      <Ionicons name="cart-sharp" size={26} color="white" />
+                    </Pressable>
+                  </HStack>
+                </VStack>
+              </Stack>
+            </Box>
+            </View>
+          )
+        }}
+      />
+      <Tab.Screen name="ProfileDashboard" component={ProfileDashboard}
+        options={{
+          tabBarLabel: "Profile"
+        }}
+      />
+    </Tab.Navigator>
   )
 }
 
