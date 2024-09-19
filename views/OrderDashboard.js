@@ -4,8 +4,6 @@ import { View, Box, Heading, Text, Badge, Stack, HStack, VStack, Button, AspectR
 
 const OrderDashboard = () => {
 	const { width, height } = Dimensions.get("window");
-
-	console.log(width, height);
 	return (
 		<View bgColor="bgViews" style={styles.flex}>
 			<ScrollView style={styles.flex}>

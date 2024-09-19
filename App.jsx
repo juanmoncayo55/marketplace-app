@@ -44,6 +44,7 @@ const theme = extendTheme({
     greenPrimary: "#33907C",
     clText: "#4f4f4f",
     titleBold: "#212121",
+    grayCl: "#D8D8D8",
     amber: {
       400: '#13B58C'
     },
@@ -589,7 +590,29 @@ function DashboardTabs(){
       />
       <Tab.Screen name="ProfileDashboard" component={ProfileDashboard}
         options={{
-          tabBarLabel: "Profile"
+          tabBarLabel: "Profile",
+          headerShown: true,
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+            <Box style={styles.contenidoHeader}>
+              <Stack>
+                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                  <HStack>
+                    <Heading color="white" size="xl">Profile</Heading>
+                  </HStack>
+                  <HStack space={3}>
+                    <Pressable>
+                      <Ionicons name="heart" size={26} color="white" />
+                    </Pressable>
+                    <Pressable onPress={() => navigation.navigate("Cart")}>
+                      <Ionicons name="cart-sharp" size={26} color="white" />
+                    </Pressable>
+                  </HStack>
+                </VStack>
+              </Stack>
+            </Box>
+            </View>
+          )
         }}
       />
     </Tab.Navigator>
