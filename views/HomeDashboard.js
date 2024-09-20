@@ -176,35 +176,35 @@ const HomeDashboard = () => {
 		  		>
 		      	{
 		      		[1,2,3,4].map(item => (
-		      			<Box key={item} maxW="55%" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
-		      				<Box>
-		      					<AspectRatio w="100%" ratio={16 / 10}>
-							        <Image source={{
-								        uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
-								      }} alt="image" />
-							      </AspectRatio>
-		      				</Box>
-		      				<Stack p="3" space={3} bgColor="white">
-		      					<Box flexDirection="row" justifyContent="center" alignItems="center">
-			      					<Center
-						        		style={styles.userFirstLetter}
-						        		rounded="full"
-						        		position="absolute"
-						        		top="-45"
-						        	>
-						        		<Text color="white" fontSize="5xl" fontWeight="semibold" style={{lineHeight: 65}}>T</Text>
-						        	</Center>
-					        	</Box>
-		      					<Heading size="md" mt="3" mb="4" color="#4A4A4A" fontWeight="normal" textAlign="center">
-						          Tridly Store
-						        </Heading>
-						        <Box flexDirection="row" justifyContent="center">
-						        	<Button style={{backgroundColor: "#33907C"}} variant="outline" rounded="full" px={7} py={0.5}>
-						      			<Text color="#FFF" fontSize="md">Follow</Text>
-						      		</Button>
-						        </Box>
-		      				</Stack>
-		      			</Box>
+								<Box key={item} maxW="55%" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
+										<Box>
+											<AspectRatio w="100%" ratio={16 / 10}>
+												<Image source={{
+													uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg"
+												}} alt="image" />
+											</AspectRatio>
+										</Box>
+										<Stack p="3" space={3} bgColor="white">
+											<Box flexDirection="row" justifyContent="center" alignItems="center">
+												<Center
+													style={styles.userFirstLetter}
+													rounded="full"
+													position="absolute"
+													top="-45"
+												>
+													<Text color="white" fontSize="5xl" fontWeight="semibold" style={{lineHeight: 65}}>T</Text>
+												</Center>
+											</Box>
+											<Heading size="md" mt="3" mb="4" color="#4A4A4A" fontWeight="normal" textAlign="center">
+												Tridly Store
+											</Heading>
+											<Box flexDirection="row" justifyContent="center">
+												<Button style={{backgroundColor: "#33907C"}} variant="outline" rounded="full" px={7} py={0.5} onPress={() => navigation.navigate("StoreProfile")}>
+													<Text color="#FFF" fontSize="md">Follow</Text>
+												</Button>
+											</Box>
+										</Stack>
+									</Box>
 		      		))
 		      	}
 		  		</ScrollView>

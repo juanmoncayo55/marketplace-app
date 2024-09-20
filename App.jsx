@@ -23,6 +23,7 @@ import AddCard from "./views/cart/AddCard";
 import CheckoutSuccess from "./views/cart/CheckoutSuccess";
 import CreateStore from "./views/store/CreateStore";
 import AddProduct from "./views/store/AddProduct";
+import StoreProfile from './views/store/StoreProfile';
 import HomeDashboard from "./views/HomeDashboard";
 import BrowserDashboard from "./views/BrowserDashboard";
 import StoreDashboard from "./views/StoreDashboard";
@@ -615,6 +616,45 @@ function DashboardTabs(){
           )
         }}
       />
+      <Tab.Screen name="StoreProfile" component={StoreProfile}
+        options={{
+          headerShown: true,
+          tabBarStyle: { display: 'none' },
+          tabBarButton: () => null, // Con este oculto la vista en el tabBottom
+          tabBarVisible: false, // Con este oculto la vista en el tabBottom
+          header: ({ navigation, route, options }) => (
+            <View style={[globalStyles.bg33907C]}>
+            <Box style={styles.contenidoHeader}>
+              <Stack>
+                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
+                  <HStack>
+                    <Pressable
+                      p="1"
+                      rounded="full"
+                      _pressed={{backgroundColor: 'emerald.700'}}
+                      onPress={() => navigation.goBack()}
+                    >
+                      <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+                    </Pressable>
+                  </HStack>
+                  <HStack>
+                    <Heading color="white" size="xl">Tradly Store</Heading>
+                  </HStack>
+                  <HStack>
+                    <Pressable p="1"
+                      rounded="full"
+                      _pressed={{backgroundColor: 'emerald.700'}}>
+                      <Icon as={Ionicons} size="lg" color="white" name="search" />
+                    </Pressable>
+                  </HStack>
+                </VStack>
+              </Stack>
+            </Box>
+            </View>
+          )
+        }}
+      />
+
     </Tab.Navigator>
   )
 }
