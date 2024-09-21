@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StatusBar, StyleSheet } from 'react-native';
-import { NativeBaseProvider, extendTheme, Icon, Box, Text, Stack,VStack,HStack, Heading, Pressable, Input, Flex, Button } from "native-base";
-import Ionicons  from "react-native-vector-icons/Ionicons";
-import FontAwesome  from "react-native-vector-icons/FontAwesome";
-import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
+import { StatusBar } from 'react-native';
+import { NativeBaseProvider, extendTheme } from "native-base";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 //React Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -31,9 +31,7 @@ import OrderDashboard from "./views/OrderDashboard";
 import ProfileDashboard from "./views/ProfileDashboard";
 
 import HeaderDashboard from "./components/HeaderDashboard";
-
-//Styles
-import globalStyles from "./styles/globalStyles";
+import HeaderBottomTab from "./components/HeaderBottomTab";
 
 const StackN = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -80,11 +78,6 @@ const theme = extendTheme({
   }
 
 });
-/*fonts: {
-  heading: "Roboto",
-  body: "Roboto",
-  mono: "Roboto",
-}*/
 
 const App = () => {
   return (
@@ -94,7 +87,7 @@ const App = () => {
         <NavigationContainer>
           <StackN.Navigator
             initialRouteName="Login"
-            sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
+            sceneContainerStyle={{ backgroundColor: "#F6F9FF" }}
           >
             <StackN.Screen
               name="Login"
@@ -134,13 +127,7 @@ const App = () => {
               options={{
                 title: "Categoria del Producto",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <HeaderDashboard
-                    navigation={navigation}
-                    route={route}
-                    options={options}
-                  />
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="Tradly Store" iconSearch={false} heartCart={true} tagsSearch={true} iconLeft={true} />
               }}
             />
             <StackN.Screen
@@ -148,14 +135,7 @@ const App = () => {
               component={Product}
               options={{
                 title: "Producto",
-                headerShown: false,
-                /*header: ({ navigation, route, options }) => (
-                  <HeaderDashboard
-                    navigation={navigation}
-                    route={route}
-                    options={options}
-                  />
-                )*/
+                headerShown: false
               }}
             />
             <StackN.Screen
@@ -164,27 +144,7 @@ const App = () => {
               options={{
                 title: "Wishlist",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">Wishlist</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="Tradly Store" iconSearch={false} heartCart={true} tagsSearch={true} iconLeft={true} />
               }}
             />
             <StackN.Screen
@@ -193,27 +153,7 @@ const App = () => {
               options={{
                 title: "Cart",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">My Cart</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="My Cart" iconSearch={false} heartCart={true} iconLeft={true} />
               }}
             />
             <StackN.Screen
@@ -222,27 +162,7 @@ const App = () => {
               options={{
                 title: "NewAddress",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">Add a New address</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="Add a New Address" iconSearch={false} heartCart={true} iconLeft={true} />
               }}
             />
             <StackN.Screen
@@ -251,27 +171,7 @@ const App = () => {
               options={{
                 title: "Payment",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">Payment Option</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="Payment Option" iconSearch={false} heartCart={true} iconLeft={true} />
               }}
             />
             <StackN.Screen
@@ -280,27 +180,7 @@ const App = () => {
               options={{
                 title: "AddCard",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={[styles.contenidoHeader, {paddingBottom: 50}]}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">Add Card</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="Add Card" iconSearch={false} heartCart={true} iconLeft={true} />
               }}
             />
             <StackN.Screen
@@ -309,27 +189,7 @@ const App = () => {
               options={{
                 title: "CheckoutSuccess",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="90%" alignItems="flex-start">
-                          <Heading color="white" size="lg">Order Details</Heading>
-                        </Box>
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={Ionicons} name="close-sharp" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab title="Order Details" iconSearch={false} heartCart={true} iconLeft={false} closeRight={true} />
               }}
             />
             <StackN.Screen
@@ -338,55 +198,15 @@ const App = () => {
               options={{
                 title: "CreateStore",
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={Ionicons} name="close-sharp" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">My Store</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab title="My Store" iconSearch={false} heartCart={true} iconLeft={false} closeRight={true} />
               }}
             />
             <StackN.Screen
               name="AddProduct"
               component={AddProduct}
-              options= {{
+              options={{
                 headerShown: true,
-                header: ({ navigation, route, options }) => (
-                  <View style={[globalStyles.bg33907C]}>
-                    <Box style={styles.contenidoHeader}>
-                      <Flex direction="row" justifyContent="center" alignItems="center">
-                        <Box w="10%">
-                          <Pressable
-                            p="1"
-                            rounded="full"
-                            _pressed={{backgroundColor: 'emerald.700'}}
-                            onPress={() => navigation.goBack()}
-                          >
-                            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                          </Pressable>
-                        </Box>
-                        <Box w="90%" alignItems="center">
-                          <Heading color="white" size="lg">Add Product</Heading>
-                        </Box>
-                      </Flex>
-                    </Box>
-                  </View>
-                )
+                header: ({ navigation, route, options }) => <HeaderBottomTab titleCenter="Add Product" iconSearch={false} heartCart={true} iconLeft={true} />
               }}
             />
           </StackN.Navigator>
@@ -396,14 +216,15 @@ const App = () => {
   )
 }
 
-function DashboardTabs(){
+
+function DashboardTabs() {
   return (
     <Tab.Navigator
       //screenOptions={{ headerShown: false }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          size=23;
+          size = 23;
           if (route.name === 'HomeDashboard') {
             iconName = "home-sharp"
           } else if (route.name === 'BrowserDashboard') {
@@ -421,199 +242,47 @@ function DashboardTabs(){
         },
         headerShown: false,
         tabBarActiveTintColor: '#33907C',
-        tabBarInactiveTintColor: 'rgba(79,79,79,.5)',
+        tabBarInactiveTintColor: 'rgba(79,79,79,.6)',
         tabBarLabelStyle: {
           fontSize: 12,
         }
       })}
       initialRouteName="HomeDashboard"
-      sceneContainerStyle={{backgroundColor: "#F6F9FF"}}
+      sceneContainerStyle={{ backgroundColor: "#F6F9FF" }}
     >
       <Tab.Screen name="HomeDashboard" component={HomeDashboard}
         options={{
           tabBarLabel: "Home",
           headerShown: true,
-          header: ({ navigation, route, options }) => {
-            return (
-              <View style={[globalStyles.bg33907C]}>
-                <Box style={styles.contenidoHeader}>
-                  <Stack>
-                    <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                      <HStack>
-                        <Heading color="white" size="xl">Groceries</Heading>
-                      </HStack>
-                      <HStack space={3}>
-                        <Pressable>
-                          <Ionicons name="heart" size={26} color="white" />
-                        </Pressable>
-                        <Pressable onPress={() => navigation.navigate("Cart")}>
-                          <Ionicons name="cart-sharp" size={26} color="white" />
-                        </Pressable>
-                      </HStack>
-                    </VStack>
-                    <VStack mt="4" mb="2">
-                      <Input
-                        placeholder="Search Product"
-                        color="#4F4F4F"
-                        variant="rounded"
-                        style={globalStyles.input}
-                        placeholderTextColor="#4F4F4F"
-                        size="lg"
-                        bgColor="white"
-                        InputLeftElement={
-                          <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
-                        }
-                      />
-                    </VStack>
-                  </Stack>
-                </Box>
-              </View>
-            )
-          }
+          header: ({ navigation, route, options }) => <HeaderBottomTab title="Groceries" bottomSearch={true} />
         }}
       />
       <Tab.Screen name="BrowserDashboard" component={BrowserDashboard}
         options={{
           tabBarLabel: "Browse",
           headerShown: true,
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-              <Box style={styles.contenidoHeader}>
-                <Stack>
-                  <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                    <HStack>
-                      <Heading color="white" size="xl">Browse</Heading>
-                    </HStack>
-                    <HStack space={3}>
-                      <Pressable>
-                        <Ionicons name="heart" size={26} color="white" />
-                      </Pressable>
-                      <Pressable onPress={() => navigation.navigate("Cart")}>
-                        <Ionicons name="cart-sharp" size={26} color="white" />
-                      </Pressable>
-                    </HStack>
-                  </VStack>
-                  <VStack mt="4">
-                    <Input
-                      placeholder="Search Product"
-                      color="#4F4F4F"
-                      variant="rounded"
-                      style={globalStyles.input}
-                      placeholderTextColor="#4F4F4F"
-                      size="lg"
-                      bgColor="white"
-                      InputLeftElement={
-                        <Icon as={Ionicons} size="lg" ml="3" color="#33907C" name="search" />
-                      }
-                    />
-                  </VStack>
-                  <VStack>
-                    <Flex direction="row" justifyContent="space-between" mt="6" space="2" mb="2">
-                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
-                        color: "white",
-                        fontSize: "md"
-                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="sort-amount-desc" color="white" />}>            
-                        Sort by
-                      </Button>
-                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
-                        color: "white",
-                        fontSize: "md"
-                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="map-marker" color="white" />}>
-                        Location
-                      </Button>
-                      <Button variant="outline" rounded="full" py="1" px="2.5" _text={{
-                        color: "white",
-                        fontSize: "md"
-                      }} leftIcon={<Icon size="sm" as={FontAwesome} name="th-list" color="white" />}>
-                        Category
-                      </Button>
-                    </Flex>
-                  </VStack>
-                </Stack>
-              </Box>
-            </View>
-          )
+          header: ({ navigation, route, options }) => <HeaderBottomTab title="Browse" bottomSearch={true} tagsSearch={true} />
         }}
       />
       <Tab.Screen name="StoreDashboard" component={StoreDashboard}
         options={{
           tabBarLabel: "Store",
           headerShown: true,
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-            <Box style={styles.contenidoHeader}>
-              <Stack>
-                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                  <HStack>
-                    <Heading color="white" size="xl">My Store</Heading>
-                  </HStack>
-                  <HStack space={3}>
-                    <Pressable>
-                      <Ionicons name="heart" size={26} color="white" />
-                    </Pressable>
-                    <Pressable onPress={() => navigation.navigate("Cart")}>
-                      <Ionicons name="cart-sharp" size={26} color="white" />
-                    </Pressable>
-                  </HStack>
-                </VStack>
-              </Stack>
-            </Box>
-            </View>
-          )
+          header: ({ navigation, route, options }) => <HeaderBottomTab title="My Store" />
         }}
       />
       <Tab.Screen name="OrderDashboard" component={OrderDashboard}
         options={{
           tabBarLabel: "Order History",
           headerShown: true,
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-            <Box style={styles.contenidoHeader}>
-              <Stack>
-                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                  <HStack>
-                    <Heading color="white" size="xl">Order History</Heading>
-                  </HStack>
-                  <HStack space={3}>
-                    <Pressable>
-                      <Ionicons name="heart" size={26} color="white" />
-                    </Pressable>
-                    <Pressable onPress={() => navigation.navigate("Cart")}>
-                      <Ionicons name="cart-sharp" size={26} color="white" />
-                    </Pressable>
-                  </HStack>
-                </VStack>
-              </Stack>
-            </Box>
-            </View>
-          )
+          header: ({ navigation, route, options }) => <HeaderBottomTab title="Order History" />
         }}
       />
       <Tab.Screen name="ProfileDashboard" component={ProfileDashboard}
         options={{
           tabBarLabel: "Profile",
           headerShown: true,
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-            <Box style={styles.contenidoHeader}>
-              <Stack>
-                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                  <HStack>
-                    <Heading color="white" size="xl">Profile</Heading>
-                  </HStack>
-                  <HStack space={3}>
-                    <Pressable>
-                      <Ionicons name="heart" size={26} color="white" />
-                    </Pressable>
-                    <Pressable onPress={() => navigation.navigate("Cart")}>
-                      <Ionicons name="cart-sharp" size={26} color="white" />
-                    </Pressable>
-                  </HStack>
-                </VStack>
-              </Stack>
-            </Box>
-            </View>
-          )
+          header: ({ navigation, route, options }) => <HeaderBottomTab title="Profile" />
         }}
       />
       <Tab.Screen name="StoreProfile" component={StoreProfile}
@@ -622,52 +291,12 @@ function DashboardTabs(){
           tabBarStyle: { display: 'none' },
           tabBarButton: () => null, // Con este oculto la vista en el tabBottom
           tabBarVisible: false, // Con este oculto la vista en el tabBottom
-          header: ({ navigation, route, options }) => (
-            <View style={[globalStyles.bg33907C]}>
-            <Box style={styles.contenidoHeader}>
-              <Stack>
-                <VStack flexDirection="row" justifyContent="space-between" alignItems="center">
-                  <HStack>
-                    <Pressable
-                      p="1"
-                      rounded="full"
-                      _pressed={{backgroundColor: 'emerald.700'}}
-                      onPress={() => navigation.goBack()}
-                    >
-                      <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
-                    </Pressable>
-                  </HStack>
-                  <HStack>
-                    <Heading color="white" size="xl">Tradly Store</Heading>
-                  </HStack>
-                  <HStack>
-                    <Pressable p="1"
-                      rounded="full"
-                      _pressed={{backgroundColor: 'emerald.700'}}>
-                      <Icon as={Ionicons} size="lg" color="white" name="search" />
-                    </Pressable>
-                  </HStack>
-                </VStack>
-              </Stack>
-            </Box>
-            </View>
-          )
+          header: ({ navigation, route, options }) => <HeaderBottomTab title="Tradly Store" iconSearch={true} heartCart={true} iconLeft={true} />
         }}
       />
 
     </Tab.Navigator>
   )
 }
-
-const styles = StyleSheet.create({
-  contenedorHeader: {
-
-  },
-  contenidoHeader: {
-    width: "90%",
-    marginHorizontal: "5%",
-    paddingVertical: 10
-  }
-})
 
 export default App

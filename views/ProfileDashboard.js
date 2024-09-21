@@ -32,7 +32,7 @@ const ProfileDashboard = () => {
 								console.log(index);
 								return (
 									<Link
-										ket={index}
+										key={index}
 										borderBottomColor="grayCl"
 										borderBottomWidth={index == 5 ? "0" : "1"}
 										_text={{ color: index == 5 ? "#33907C" : "#4f4f4f" , fontSize: "md", fontFamily: "SFProText", fontWeight: "normal" }}
