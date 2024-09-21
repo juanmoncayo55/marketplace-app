@@ -26,7 +26,7 @@ const HeaderBottomTab = (props) => {
 			            _pressed={{ backgroundColor: 'emerald.700' }}
 			            onPress={() => navigation.goBack()}
 			          >
-			            <Icon as={MaterialIcons} name="arrow-back" size="xl" color="white" />
+			            <Icon as={Ionicons} name="arrow-back-outline" size="xl" color="white" />
 			          </Pressable>
 	          	</HStack>
           	) }
