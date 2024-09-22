@@ -53,12 +53,12 @@ const HeaderBottomTab = (props) => {
 							</HStack>
 	          )}
             { !heartCart && (
-	            <HStack space={3}>
+	            <HStack space={5}>
 	              <Pressable>
-	                <Ionicons name="heart" size={26} color="white" />
+	                <Ionicons name="heart" size={25} color="white" />
 	              </Pressable>
 	              <Pressable onPress={() => navigation.navigate("Cart")}>
-	                <Ionicons name="cart-sharp" size={26} color="white" />
+	                <Ionicons name="cart-sharp" size={25} color="white" />
 	              </Pressable>
 	            </HStack>
             )}
@@ -79,7 +79,7 @@ const HeaderBottomTab = (props) => {
                 color="#4F4F4F"
                 variant="rounded"
                 style={globalStyles.input}
-                placeholderTextColor="#4F4F4F"
+                placeholderTextColor="rgba(79,79,79,.5)"
                 size="lg"
                 bgColor="white"
                 InputLeftElement={

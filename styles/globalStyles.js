@@ -13,7 +13,8 @@ const globalStyles = StyleSheet.create({
 		flex: 1
 	},
 	input: {
-		width: "100%"
+		width: "100%",
+		fontFamily: "SFProText"
 	},
 	boton: {
 		backgroundColor: '#FFF',

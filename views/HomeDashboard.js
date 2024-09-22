@@ -5,10 +5,24 @@ import data from "../data.js";
 import {useNavigation} from "@react-navigation/native";
 import globalStyles from "../styles/globalStyles";
 import CardProduct from "../components/CardProduct";
+import ButtonComponent from "../components/ButtonComponent";
+import CardFront from "../components/CardFront";
+import CategoryThumnail from "../components/CategoryThumnail";
 
 const HomeDashboard = () => {
 	//React Navigation
 	const navigation = useNavigation();
+
+	const dataThumnailCard = [
+		{text: "Beverages", image: require("../images/beverages.png"), data: data.data.beverages},
+		{text: "Egg", image: require("../images/egg.png"), data: data.data.egg},
+		{text: "Frozen Veg", image: require("../images/Frozen.png"), data: data.data.frozen},
+		{text: "Fruit", image: require("../images/Fruit.png"), data: data.data.fruit},
+		{text: "Home Care", image: require("../images/homecare.png"), data: data.data.homeCare},
+		{text: "Pet Care", image: require("../images/petcare.png"), data: data.data.petCare},
+		{text: "Vegetables", image: require("../images/vegetables.png"), data: data.data.vegetables},
+		{text: "Home Care", image: require("../images/homecare.png"), data: data.data.homeCare}
+	]
 
 	return (
 		<View>
@@ -18,83 +32,17 @@ const HomeDashboard = () => {
 	        contentContainerStyle={{padding: 12, display: "flex", columnGap: 15}}
 	        showsHorizontalScrollIndicator={false}
 	      >
-	      	{[1,2,3,4,5].map(item => (
-		      	<Box key={item} height="180" width="320" backgroundColor='#000000' color="black" rounded="xl" p="5" justifyContent="center" alignItems="flex-start">
-		      		<Text textTransform="uppercase" color="white" fontSize="lg">Ready to deliver to{"\n"}your home</Text>
-		      		<Button mt="5" style={{width: "fit-content", backgroundColor: "black"}} variant="outline" rounded="full" px={5} py={1}>
-		      			<Text textTransform="uppercase" color="white" fontSize="md" fontWeight="bold">Start Shopping</Text>
-		      		</Button>
-		      	</Box>
-	      	))}
+	      	{[1,2,3,4,5].map(item => <CardFront item={item} /> )}
 	      </ScrollView>
 
 	      <View>
 		      <VStack>
 		      	<Flex direction="row" wrap="wrap" gap="0.5">
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Beverages", products: data.data.Bread})}>
-		      			<ImageBackground
-		      				source={require("../images/beverages.png")}
-		      				style={styles.imagen}
-		      			>
-		      				<Text style={styles.textImage}>Beverages</Text>
-		      			</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Egg", products: data.data.egg})}>
-		      			<ImageBackground
-		      				source={require("../images/egg.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Egg</Text>
-		      		</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Frozen Veg", products: data.data.frozen})}>
-		      			<ImageBackground
-		      				source={require("../images/Frozen.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Frozen</Text>
-		      		</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Fruit", products: data.data.fruit})}>
-		      			<ImageBackground
-		      				source={require("../images/Fruit.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Fruit</Text>
-		      		</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Home Care", products: data.data.homeCare})}>
-		      			<ImageBackground
-		      				source={require("../images/homecare.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Homecare</Text>
-		      		</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Pet Care", products: data.data.petCare})}>
-		      			<ImageBackground
-		      				source={require("../images/petcare.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Petcare</Text>
-		      		</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Vegetables", products: data.data.vegetables})}>
-		      			<ImageBackground
-		      				source={require("../images/vegetables.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Vegetables</Text>
-		      		</ImageBackground>
-		      		</Pressable>
-		      		<Pressable onPress={() => navigation.navigate("CategoryProduct", {title: "Home Care", products: data.data.homeCare})}>
-		      			<ImageBackground
-		      				source={require("../images/homecare.png")}
-		      				style={styles.imagen}
-		      			>
-		      			<Text style={styles.textImage}>Home Care</Text>
-		      		</ImageBackground>
-		      		</Pressable>
+		      		{
+		      			dataThumnailCard.map((item, index) => (
+			      			<CategoryThumnail content={item} index={index} />
+			      		))
+		      		}
 		      	</Flex>
 		      </VStack>
 	      </View>
@@ -104,10 +52,10 @@ const HomeDashboard = () => {
 	      			<HStack>
 	      				<Heading color="#4F4F4F" fontSize={22}>New Product</Heading>
 	      			</HStack>
-	      			<HStack>
-	      				<Button style={{backgroundColor: "#33907C"}} variant="outline" rounded="full" px={7} py={0.5}>
-			      			<Text color="white" fontSize="md">See all</Text>
-			      		</Button>
+	      			<HStack>	      				
+		      			<ButtonComponent>
+									See all
+								</ButtonComponent>
 	      			</HStack>
 	      		</VStack>
 	      	</Stack>
@@ -134,9 +82,9 @@ const HomeDashboard = () => {
 	      				<Heading color="#4F4F4F" fontSize={22}>Product Popular</Heading>
 	      			</HStack>
 	      			<HStack>
-	      				<Button style={{backgroundColor: "#33907C"}} variant="outline" rounded="full" px={7} py={0.5}>
-			      			<Text color="white" fontSize="md">See all</Text>
-			      		</Button>
+	      				<ButtonComponent>
+									See all
+								</ButtonComponent>
 	      			</HStack>
 	      		</VStack>
 	      	</Stack>
@@ -162,9 +110,9 @@ const HomeDashboard = () => {
 	      				<Heading color="#FFF" fontSize={22}>Store to follow</Heading>
 	      			</HStack>
 	      			<HStack>
-	      				<Button style={{backgroundColor: "#FFF"}} variant="outline" rounded="full" px={7} py={0.5}>
-			      			<Text color="#33907C" fontSize="md">View all</Text>
-			      		</Button>
+			      		<ButtonComponent smallWhite={true}>
+									View all
+								</ButtonComponent>
 	      			</HStack>
 	      		</VStack>
 	      	</Stack>
@@ -199,9 +147,9 @@ const HomeDashboard = () => {
 												Tridly Store
 											</Heading>
 											<Box flexDirection="row" justifyContent="center">
-												<Button style={{backgroundColor: "#33907C"}} variant="outline" rounded="full" px={7} py={0.5} onPress={() => navigation.navigate("StoreProfile")}>
-													<Text color="#FFF" fontSize="md">Follow</Text>
-												</Button>
+												<ButtonComponent>
+													Follow
+												</ButtonComponent>
 											</Box>
 										</Stack>
 									</Box>

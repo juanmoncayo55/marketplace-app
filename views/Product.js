@@ -5,6 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { SliderBox } from "react-native-image-slider-box";
 import FontAwesome  from "react-native-vector-icons/FontAwesome";
 import MaterialIcons  from "react-native-vector-icons/MaterialIcons";
+
+import ButtonComponent from "../components/ButtonComponent";
+
 import globalStyles from "../styles/globalStyles";
 
 //npm i megamaxs1234/react-native-image-slider-box 
@@ -133,52 +136,53 @@ const Product = () => {
 							<Text fontSize="lg" color="#4F4F4F" lineHeight="lg">Tradly Store</Text>
 						</HStack>
 						<HStack>
-							<Button style={{backgroundColor: "#33907C"}} variant="outline" rounded="full" px={7} py={0.5}>
-		      			<Text color="white" fontSize="md">Follow</Text>
-		      		</Button>
+							<ButtonComponent>
+								Follow
+							</ButtonComponent>
 						</HStack>
 					</Box>
 				</VStack>
 
 				<VStack bgColor="white" mb="3">
 					<Box style={styles.contenido} py="6">
-						<Text color="#4F4F4F" fontSize="md">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lobortis cras placerat diam ipsum ut. Nisi vel adipiscing massa bibendum diam. Suspendisse mattis dui maecenas duis mattis. Mattis aliquam at arcu, semper nunc, venenatis et pellentesque eu. Id tristique maecenas tristique habitasse eu elementum sed. Aliquam eget lacus, arcu, adipiscing eget feugiat in dolor sagittis. Non commodo, a justo massa porttitor sed placerat in. Orci tristique etiam tempus sed. Mi varius morbi egestas dictum tempor nisl. In</Text>
+						<Text fontFamily="SFProText" color="rgba(79,79,79,.7)" fontSize="sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lobortis cras placerat diam ipsum ut. Nisi vel adipiscing massa bibendum diam. Suspendisse mattis dui maecenas duis mattis. Mattis aliquam at arcu, semper nunc, venenatis et pellentesque eu. Id tristique maecenas tristique habitasse eu elementum sed. Aliquam eget lacus, arcu, adipiscing eget feugiat in dolor sagittis. Non commodo, a justo massa porttitor sed placerat in. Orci tristique etiam tempus sed. Mi varius morbi egestas dictum tempor nisl. In</Text>
 
-						<Button bgColor="#33907C" rounded="full" mt="9">
-							<Text fontSize={22} color="#FFF" fontWeight="semibold">Add to Cart</Text>
-						</Button>
+						<ButtonComponent largeBtn={true}>
+							Add to Cart
+						</ButtonComponent>
+
 
 						<Stack mt="8" space={3}>
 							<VStack flexDirection="row">
 								<HStack w="40%">
-									<Text color="#4F4F4F" fontSize="md">Condition</Text>
+									<Text fontFamily="SFProText" color="#4F4F4F" fontSize="sm">Condition</Text>
 								</HStack>
 								<HStack w="60%">
-									<Text color="#000000" fontSize="md">Organic</Text>
+									<Text fontFamily="SFProText" color="#000000" fontSize="sm">Organic</Text>
 								</HStack>
 							</VStack>
 							<VStack flexDirection="row">
 								<HStack w="40%">
-									<Text color="#4F4F4F" fontSize="md">Price Type</Text>
+									<Text fontFamily="SFProText" color="#4F4F4F" fontSize="sm">Price Type</Text>
 								</HStack>
 								<HStack w="60%">
-									<Text color="#000000" fontSize="md">Fixed</Text>
+									<Text fontFamily="SFProText" color="#000000" fontSize="sm">Fixed</Text>
 								</HStack>
 							</VStack>
 							<VStack flexDirection="row">
 								<HStack w="40%">
-									<Text color="#4F4F4F" fontSize="md">Category</Text>
+									<Text fontFamily="SFProText" color="#4F4F4F" fontSize="sm">Category</Text>
 								</HStack>
 								<HStack w="60%">
-									<Text color="#000000" fontSize="md">Beverages</Text>
+									<Text fontFamily="SFProText" color="#000000" fontSize="sm">Beverages</Text>
 								</HStack>
 							</VStack>
 							<VStack flexDirection="row">
 								<HStack w="40%">
-									<Text color="#4F4F4F" fontSize="md">Location</Text>
+									<Text fontFamily="SFProText" color="#4F4F4F" fontSize="sm">Location</Text>
 								</HStack>
 								<HStack w="60%" >
-									<Text color="#000000" fontSize="md">Kualalumpur, Malaysia</Text>
+									<Text fontFamily="SFProText" color="#000000" fontSize="sm">Kualalumpur, Malaysia</Text>
 								</HStack>
 							</VStack>
 						</Stack>
@@ -187,15 +191,15 @@ const Product = () => {
 
 				<VStack bgColor="white">
 					<Box style={styles.contenido} py="6">
-						<Heading color="#000000" fontSize="2xl" fontWeight="semibold">Additional Details</Heading>
+						<Heading fontFamily="SFProText" color="#000000" fontSize="xl" fontWeight="semibold">Additional Details</Heading>
 
 						<Stack mt="5" space={3}>
 							<VStack flexDirection="row">
 								<HStack w="40%">
-									<Text color="#4F4F4F" fontSize="md">Delivery Details</Text>
+									<Text fontFamily="SFProText" color="#4F4F4F" fontSize="sm">Delivery Details</Text>
 								</HStack>
 								<HStack w="60%">
-									<Text color="#000000" fontSize="md">Home Delivery Available, Cash On Delivery</Text>
+									<Text fontFamily="SFProText" color="#000000" fontSize="sm">Home Delivery Available, Cash On Delivery</Text>
 								</HStack>
 							</VStack>
 						</Stack>
