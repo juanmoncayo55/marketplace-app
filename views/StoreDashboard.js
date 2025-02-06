@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { StyleSheet, Dimensions, ScrollView, Animated } from 'react-native'
-import { Text, View, Box, Flex, Button, VStack, HStack, Stack, Center, Pressable, Input, Icon, AspectRatio, Image, Heading, AlertDialog, PresenceTransition, Skeleton } from "native-base";
+import { Text, View, Box, Flex, Button, VStack, HStack, Stack, Center, Pressable, Input, Icon, AspectRatio, Image, Heading, AlertDialog, PresenceTransition, Skeleton, useToast } from "native-base";
 import {useNavigation} from "@react-navigation/native";
 import {useQuery, useMutation} from "@apollo/client"
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,7 +14,8 @@ import {
 	GET_PRODUCTS
 } from '../gql/queries.js';
 import { 
-	REMOVE_STORE
+	REMOVE_STORE,
+	REMOVE_PRODUCT
 } from '../gql/mutation.js';
 
 const { width, height } = Dimensions.get('window'); //Dimensiones del celular
@@ -31,6 +32,7 @@ const StoreDashboard = () => {
   //Segundo: se delcara useContext y useNavigation
   const {setHideMenuDash, user} = useContext(UserContext);
   const navigation = useNavigation();
+  const toast = useToast();
 
   //Tercero: se delcara useQuery y useMutation
   // Queries
@@ -68,6 +70,28 @@ const StoreDashboard = () => {
     }
   });
 
+  const [removeProduct] = useMutation(REMOVE_PRODUCT,{
+  	update(cache, { data: {removeProduct} }, context){
+			const {getProducts} = cache.readQuery({ 
+				query: GET_PRODUCTS,
+				skip: !storeData?.getStore,
+				variables: {
+					store: storeData?.getStore?.id
+				}
+			});
+			cache.writeQuery({
+				query: GET_PRODUCTS,
+				skip: !storeData?.getStore,
+				variables: {
+					store: storeData?.getStore?.id
+				},
+				data: {getProducts: getProducts.filter(product => product.id !== context.variables.id)}
+			});
+
+			//console.log("getProducts después al eliminar:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: storeData?.getStore?.id } })); // <-- Debug
+		}
+  });
+
   //Cuarto: se delcara los metodos
   const handleRemoveStore = async () => {
     await removeStore();
@@ -87,6 +111,25 @@ const StoreDashboard = () => {
   	}
   }
   const handleHideScreenAddPorduct = () => setShowScreenAddProduct(false);
+
+  const handleRemoveProduct = async (id) => {
+  	try{
+	  	const data = await removeProduct({
+	  		variables: {
+	  			id: id
+	  		}
+	  	});
+
+	  	toast.show({
+	  		"description": "Producto eliminado correctamente."
+	  	});
+
+	  	console.log("DAta elminar producto: ", data);
+  	} catch(error) {
+  	  console.log("Error al eliminar el producto: ", error);
+  	}
+
+  }
 
   //Quinto: se delcaran loading o errores de los useQueries
   /*if (storeLoading || productsLoading) return (
@@ -223,7 +266,7 @@ const StoreDashboard = () => {
 											    <Pressable rounded="full" p="2" bgColor="rgba(255,255,255,.4)" _pressed={{opacity:50}} onPress={() => handleShowScreenAddProduct("edit", item)}>
 										    		<Icon as={Ionicons} size="lg" color="#FFFFFF" name="pencil"/>
 											    </Pressable>
-											    <Pressable rounded="full" p="2" bgColor="rgba(255,255,255,.4)" _pressed={{opacity:50}}>
+											    <Pressable rounded="full" p="2" bgColor="rgba(255,255,255,.4)" _pressed={{opacity:50}} onPress={() => handleRemoveProduct(item.id)}>
 										    		<Icon as={Ionicons} size="lg" color="#FFFFFF" name="trash"/>
 											    </Pressable>
 										    </View>

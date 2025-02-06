@@ -30,6 +30,12 @@ export const UPDATE_PRODUCT = gql`
   }
 `;
 
+export const REMOVE_PRODUCT = gql`
+  mutation deleteProduct($id: ID!){
+    deleteProduct(id: $id)
+  }
+`
+
 export const REMOVE_STORE = gql`
   mutation removeStore{
     removeStore

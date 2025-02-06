@@ -141,7 +141,7 @@ const AddProduct = ({
 				data: {getProducts: productUpdates}
 			})
 
-			console.log("getProducts después:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: store.id } })); // <-- Debug
+			//console.log("getProducts después:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: store.id } })); // <-- Debug
 		}
 	});
 
