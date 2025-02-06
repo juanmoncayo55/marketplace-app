@@ -2,54 +2,22 @@ import React, {useState, useEffect, useContext} from 'react'
 import { StyleSheet, Dimensions, ScrollView, Animated } from 'react-native'
 import { Text, View, Box, Flex, Button, VStack, HStack, Stack, Center, Pressable, Input, Icon, AspectRatio, Image, Heading, AlertDialog, PresenceTransition, Skeleton } from "native-base";
 import {useNavigation} from "@react-navigation/native";
-import {gql, useQuery, useMutation} from "@apollo/client"
+import {useQuery, useMutation} from "@apollo/client"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons  from "react-native-vector-icons/Ionicons";
 import globalStyles from "../styles/globalStyles.js";
 import HeaderBottomTab from '../components/HeaderBottomTab.js';
 import UserContext from '../context/user/userContext.js';
 import AddProduct from './store/AddProduct.js';
+import { 
+	GET_STORE,
+	GET_PRODUCTS
+} from '../gql/queries.js';
+import { 
+	REMOVE_STORE
+} from '../gql/mutation.js';
 
 const { width, height } = Dimensions.get('window'); //Dimensiones del celular
-
-const GET_STORE = gql`
-	query {
-	  getStore{
-	  	id
-	    name
-	  }
-	}
-`;
-
-const REMOVE_STORE = gql`
-	mutation removeStore{
-		removeStore
-	}
-`
-
-const GET_PRODUCTS = gql`
-	query getProducts($store: ID!){
-	  getProducts(store: $store){
-	    id
-			title
-			precie
-			discount
-			follow
-			description
-			condition
-			priceType
-			category
-			location
-			aditionalDetail{
-	      detail
-	    }
-			imageGallery{
-	      url
-	    }
-			store
-	  }
-	}
-`
 
 const StoreDashboard = () => {
 

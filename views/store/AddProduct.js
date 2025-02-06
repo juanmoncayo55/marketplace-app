@@ -1,79 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import { StyleSheet, ScrollView, LogBox } from 'react-native'
 import {View, Text, Stack, VStack, FormControl, Box, Icon, Button, Pressable, Image, Actionsheet, useDisclose, Spinner, useToast, Select} from "native-base";
-import {useMutation, useQuery, gql} from "@apollo/client";
 import Ionicons  from "react-native-vector-icons/Ionicons";
 import { RNChipView } from "react-native-chip-view";
 import { RNCamera } from "react-native-camera";
+import {useQuery, useMutation} from "@apollo/client"
 import RNFS from 'react-native-fs';
 import FilePickerManager from 'react-native-file-picker';
 //import MapView, {Marker} from 'react-native-maps';
 //import Geolocation from '@react-native-community/geolocation';
 import HeaderBottomTab from '../../components/HeaderBottomTab';
 import InputFloat from '../../components/InputFloat';
-
-const GET_CATEGORIES = gql`
-	query getCategories{
-	  getCategories{
-	  	id
-	    name
-	  }
-	}
-`;
-
-const CREATE_PRODUCT = gql`
-	mutation createProduct($input: ProductInput, $files: [Upload!]){
-	  createProduct(input: $input, files: $files)
-	}
-`;
-
-const GET_PRODUCTS = gql`
-	query getProducts($store: ID!){
-	  getProducts(store: $store){
-	    id
-			title
-			precie
-			discount
-			follow
-			description
-			condition
-			priceType
-			category
-			location
-			aditionalDetail{
-	      detail
-	    }
-			imageGallery{
-	      url
-	    }
-			store
-	  }
-	}
-`
-
-const UPDATE_PRODUCT = gql`
-	mutation updateProduct($input: ProductInput, $files: [Upload!], $existsImage: [String]){
-		updateProduct(input: $input, files: $files, existsImage: $existsImage){
-			id
-			title
-			precie
-			discount
-			follow
-			description
-			condition
-			priceType
-			category
-			location
-			aditionalDetail{
-	      detail
-	    }
-			imageGallery{
-	      url
-	    }
-			store
-		}
-	}
-`;
+import { 
+	CREATE_PRODUCT,
+	UPDATE_PRODUCT
+} from '../../gql/mutation';
+import { 
+	GET_CATEGORIES,
+	GET_PRODUCTS
+} from '../../gql/queries';
 
 const AddProduct = ({
 	showScreenAddProduct,
@@ -95,16 +40,19 @@ const AddProduct = ({
 	const [tagsCategories, setTagsCategories] = useState([]);
 	const [resourcesImages, setResourcesImages] = useState([]);
 	const [rscImgFront, setRscImgFront] = useState([]);
+	const [currentImgProduct, setCurrentImgProduct] = useState([]);
+	const [saveImgDelete, setSaveImgDelete] = useState([]);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [loadedPicture, setLoadedPicture] = useState(false);
 	const [fotoShow, setFotoShow] = useState(false);
 
-	//console.log("currentProduct: ", currentProduct.imageGallery)
+	//console.log("currentProduct: ", currentProduct)
 
 	useEffect(() => {
 		if(currentProduct !== null){
 			const newImages = currentProduct.imageGallery.map(item => ({ uri: item.url }));
-    	setRscImgFront(newImages);
+    	setCurrentImgProduct(newImages)
+    	setRscImgFront(newImages)
 		}
 
 		return () => setRscImgFront([])
@@ -156,10 +104,48 @@ const AddProduct = ({
 			});
 			cache.writeQuery({
 				query: GET_PRODUCTS,
+				variables: {
+					store: store.id
+				},
 				data: { getProducts: getProducts.concat([createProduct]) }
 			})
 		}
 	});
+
+	//mutation edit product
+	const [updateProduct] = useMutation(UPDATE_PRODUCT, {
+		update(cache, { data: {updateProduct} }){
+			const {getProducts} = cache.readQuery({ 
+				query: GET_PRODUCTS,
+				variables: {
+					store: store.id
+				}
+			});
+
+			const productUpdates = getProducts.map(product => {
+				if(product.id === updateProduct.id) {
+					console.log(product)
+					/*const urisAEliminar = saveImgDelete.map(obj => obj.uri);
+					const nuevoArrayDeObjetos = updateProduct.imageGallery.filter(objeto => !urisAEliminar.includes(objeto.uri));
+					let nuevoProductoActualizado = { ...updateProduct, imageGallery: nuevoArrayDeObjetos }*/
+					return {...product, ...updateProduct}
+				}
+				return product;
+			})
+
+			cache.writeQuery({
+				query: GET_PRODUCTS,
+				variables: {
+					store: store.id
+				},
+				data: {getProducts: productUpdates}
+			})
+
+			console.log("getProducts después:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: store.id } })); // <-- Debug
+		}
+	});
+
+
 	//query get categories
 	const {loading, data, error} = useQuery(GET_CATEGORIES);
 
@@ -295,24 +281,73 @@ const AddProduct = ({
 	}
 
 	const handleUpdateProduct = async () => {
-		console.log(
-			productName,
-			parseInt(productPrice),
-			parseInt(productOfferPrice),
-			10,
-			productProductDescription,
-			productCondition,
-			productPriceType,
-			productCategory,
-			productLocationDeta,
-			tagsCategories,
-			store.id
- 		)
- 		console.log(currentProduct.imageGallery)
+		const objetosFiltrados = saveImgDelete.filter(img => {
+		  return img.uri && !img.uri.includes("base64");
+		});
+
+		console.log({
+  		id: currentProduct.id,
+			input:{
+				title: productName,
+				precie: parseInt(productPrice),
+				discount:parseInt(productOfferPrice),
+				follow: 10,
+				description:productProductDescription,
+				condition: productCondition,
+				priceType: productPriceType,
+				category: productCategory,
+				location:productLocationDeta,
+				aditionalDetail:tagsCategories,
+				store: store.id
+			},
+			files:{
+				resourcesImages
+			},
+			existsImage: objetosFiltrados
+		})
+
+		try{
+		  const data = await updateProduct({
+		  	variables:{
+		  		id: currentProduct.id,
+					input:{
+						title: productName,
+						precie: parseInt(productPrice),
+						discount:parseInt(productOfferPrice),
+						follow: 10,
+						description:productProductDescription,
+						condition: productCondition,
+						priceType: productPriceType,
+						category: productCategory,
+						location:productLocationDeta,
+						aditionalDetail:tagsCategories,
+						store: store.id
+					},
+					files:{
+						resourcesImages
+					},
+					existsImage: objetosFiltrados
+				}
+		  });
+
+		  console.log(data)
+
+		  handleHideScreenAddPorduct()
+		} catch(error) {
+		  console.log("Error al actualizar el usuario: ", error);
+		}
+	}
+
+	const handleRemoveImage = async (img) => {
+		console.log("img: ",img)
+		setRscImgFront(arr => arr.filter(item => item.uri !== img.uri)) //Elimino para que el usuario vea
+		setSaveImgDelete([img, ...saveImgDelete])
 	}
 
 	const actionRequired = () => {
+		setCurrentImgProduct([])
 		setRscImgFront([])
+		setSaveImgDelete([])
 	}
 
 	const {isOpen, onOpen, onClose} = useDisclose()
@@ -320,7 +355,7 @@ const AddProduct = ({
 	return (
 		<View bgColor="bgViews" style={{flex: 1}}>
 			<HeaderBottomTab
-        titleCenter="Add Product"
+        titleCenter={currentProduct !== null ? "Edit Product" : "Add Product"}
         iconSearch={false}
         heartCart={true}
         iconLeft={true}
@@ -355,9 +390,9 @@ const AddProduct = ({
 											w={150}
 											h={130}
 										/>
-										<View position="absolute" right="-5" top="-5" bgColor="#212121" rounded="full" w="7" h="7" justifyContent="center" alignItems="center">
+										<Pressable position="absolute" right="-5" top="-5" bgColor="#212121" rounded="full" w="7" h="7" justifyContent="center" alignItems="center" onPress={() =>handleRemoveImage(item)} _pressed={{opacity:60}}>
 											<Icon size="lg" color="white" as={Ionicons} name="close" />
-										</View>
+										</Pressable>
 									</View>
 								)) : null
 							}
@@ -471,7 +506,7 @@ const AddProduct = ({
 		        	(!loading && !error) && (
 				        <FormControl isReadOnly>
 				        	<View mx={"3"} mt={"4"}>
-					        	<Select selectedValue={productCategory} minWidth="200" accessibilityLabel="Choose Category" placeholder="Choose Category" onValueChange={item => setProductCategory(item)} variant={"underlined"} style={{fontSize: 14, color: "#4F4F4F"}} _selectedItem={{
+					        	<Select selectedValue={currentProduct !== null ? currentProduct[0] : productCategory} minWidth="200" accessibilityLabel="Choose Category" placeholder="Choose Category" onValueChange={item => setProductCategory(item)} variant={"underlined"} style={{fontSize: 14, color: "#4F4F4F"}} _selectedItem={{
 								        bg: "greenPrimary",
 								        color: "white"
 								      }}>
