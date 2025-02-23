@@ -7,6 +7,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import globalStyles from "../styles/globalStyles.js";
 import UserContext from '../context/user/userContext.js';
+import MenuContext from '../context/menu/menuContext.js';
 
 const HeaderBottomTab = (props) => {
 	const { title, bottomSearch, tagsSearch, titleCenter, iconSearch, heartCart, iconLeft, closeRight, handleHideScreenAddPorduct, actionRequired } = props;
@@ -16,6 +17,7 @@ const HeaderBottomTab = (props) => {
 
 	//Context
 	const {hide, setHideMenuDash} = useContext(UserContext);
+	const {bottomMenu} = useContext(MenuContext);
 
 	/*useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
@@ -26,9 +28,10 @@ const HeaderBottomTab = (props) => {
 
   const handleBackButtonClick = () => {
     setHideMenuDash(false)
-		actionRequired()
-		navigation.navigate("StoreDashboard");
-		handleHideScreenAddPorduct()
+    bottomMenu()
+		actionRequired && actionRequired()
+		//navigation.navigate("StoreDashboard");
+		handleHideScreenAddPorduct && handleHideScreenAddPorduct()
   }
 
 	return !hide ? (

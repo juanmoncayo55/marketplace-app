@@ -32,6 +32,7 @@ import EditProfile from './views/EditProfile';
 import HeaderBottomTab from './components/HeaderBottomTab';
 
 import UserState from "./context/user/userState";
+import MenuState from "./context/menu/menuState";
 import { navigationRef } from './helpers/RootNavigation';
 
 const StackN = createNativeStackNavigator();
@@ -102,247 +103,235 @@ const App = () => {
       <NativeBaseProvider theme={theme}>
         <StatusBar barStyle="light-content" backgroundColor="#33907C" />
         <UserState>
-          <NavigationContainer ref={navigationRef}>
-            <StackN.Navigator
-              initialRouteName="Login"
-              sceneContainerStyle={{backgroundColor: '#F6F9FF'}}>
-              <StackN.Screen
-                name="Login"
-                component={Login}
-                options={{
-                  title: 'Iniciar Sesión',
-                  headerShown: false,
-                }}
-              />
-              <StackN.Screen
-                name="SignUp"
-                component={SignUp}
-                options={{
-                  title: 'Registrarme',
-                  headerShown: false,
-                }}
-              />
-              <StackN.Screen
-                name="AcountVerify"
-                component={AcountVerify}
-                options={{
-                  title: 'Verificar Cuenta',
-                  headerShown: false,
-                }}
-              />
-              <StackN.Screen
-                name="HomeDashboard"
-                component={HomeDashboard}
-                options={{
-                  title: 'Categoria del Producto',
-                  tabBarLabel: 'Home',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab title="Groceries" bottomSearch={true} />
-                  )
-                }}
-              />
-              <StackN.Screen
-                name="BrowserDashboard"
-                component={BrowserDashboard}
-                options={{
-                  tabBarLabel: 'Browse',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      title="Browse"
-                      bottomSearch={true}
-                      tagsSearch={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="StoreDashboard"
-                component={StoreDashboard}
-                options={{
-                  tabBarLabel: 'Store',
-                  headerShown: false
-                }}
-              />
-              <StackN.Screen
-                name="OrderDashboard"
-                component={OrderDashboard}
-                options={{
-                  tabBarLabel: 'Order History',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab title="Order History" />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="ProfileDashboard"
-                component={ProfileDashboard}
-                options={{
-                  tabBarLabel: 'Profile',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab title="Profile" />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="CategoryProduct"
-                component={CategoryProduct}
-                options={{
-                  title: 'Categoria del Producto',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="Tradly Store"
-                      iconSearch={false}
-                      heartCart={true}
-                      tagsSearch={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="Product"
-                component={Product}
-                options={{
-                  title: 'Producto',
-                  headerShown: false,
-                }}
-              />
-              <StackN.Screen
-                name="Wishlist"
-                component={Wishlist}
-                options={{
-                  title: 'Wishlist',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="Tradly Store"
-                      iconSearch={false}
-                      heartCart={true}
-                      tagsSearch={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="Cart"
-                component={Cart}
-                options={{
-                  title: 'Cart',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="My Cart"
-                      iconSearch={false}
-                      heartCart={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="NewAddress"
-                component={NewAddress}
-                options={{
-                  title: 'NewAddress',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="Add a New Address"
-                      iconSearch={false}
-                      heartCart={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="Payment"
-                component={Payment}
-                options={{
-                  title: 'Payment',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="Payment Option"
-                      iconSearch={false}
-                      heartCart={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="AddCard"
-                component={AddCard}
-                options={{
-                  title: 'AddCard',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="Add Card"
-                      iconSearch={false}
-                      heartCart={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="CheckoutSuccess"
-                component={CheckoutSuccess}
-                options={{
-                  title: 'CheckoutSuccess',
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      title="Order Details"
-                      iconSearch={false}
-                      heartCart={true}
-                      iconLeft={false}
-                      closeRight={true}
-                    />
-                  ),
-                }}
-              />
-              <StackN.Screen
-                name="CreateStore"
-                component={CreateStore}
-                options={{
-                  title: 'CreateStore',
-                  headerShown: false
-                }}
-              />
-              <StackN.Screen
-                name="AddProduct"
-                component={AddProduct}
-                options={{
-                  headerShown: false
-                }}
-              />
-              <StackN.Screen
-                name="EditProfile"
-                component={EditProfile}
-                options={{
-                  headerShown: true,
-                  header: ({navigation, route, options}) => (
-                    <HeaderBottomTab
-                      titleCenter="Edit Profile"
-                      iconSearch={false}
-                      heartCart={true}
-                      iconLeft={true}
-                    />
-                  ),
-                }}
-              />
-            </StackN.Navigator>
-          </NavigationContainer>
-          <Dashboard />
+          <MenuState>
+            <NavigationContainer ref={navigationRef}>
+              <StackN.Navigator
+                initialRouteName="HomeDashboard"
+                sceneContainerStyle={{backgroundColor: '#F6F9FF'}}>
+                <StackN.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    title: 'Iniciar Sesión',
+                    headerShown: false,
+                  }}
+                />
+                <StackN.Screen
+                  name="SignUp"
+                  component={SignUp}
+                  options={{
+                    title: 'Registrarme',
+                    headerShown: false,
+                  }}
+                />
+                <StackN.Screen
+                  name="AcountVerify"
+                  component={AcountVerify}
+                  options={{
+                    title: 'Verificar Cuenta',
+                    headerShown: false,
+                  }}
+                />
+                <StackN.Screen
+                  name="HomeDashboard"
+                  component={HomeDashboard}
+                  options={{
+                    title: 'Categoria del Producto',
+                    tabBarLabel: 'Home',
+                    headerShown: false
+                  }}
+                />
+                <StackN.Screen
+                  name="BrowserDashboard"
+                  component={BrowserDashboard}
+                  options={{
+                    tabBarLabel: 'Browse',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        title="Browse"
+                        bottomSearch={true}
+                        tagsSearch={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="StoreDashboard"
+                  component={StoreDashboard}
+                  options={{
+                    tabBarLabel: 'Store',
+                    headerShown: false
+                  }}
+                />
+                <StackN.Screen
+                  name="OrderDashboard"
+                  component={OrderDashboard}
+                  options={{
+                    tabBarLabel: 'Order History',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab title="Order History" />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="ProfileDashboard"
+                  component={ProfileDashboard}
+                  options={{
+                    tabBarLabel: 'Profile',
+                    headerShown: false
+                  }}
+                />
+                <StackN.Screen
+                  name="CategoryProduct"
+                  component={CategoryProduct}
+                  options={{
+                    title: 'Categoria del Producto',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        titleCenter="Tradly Store"
+                        iconSearch={false}
+                        heartCart={true}
+                        tagsSearch={true}
+                        iconLeft={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="Product"
+                  component={Product}
+                  options={{
+                    title: 'Producto',
+                    headerShown: false,
+                  }}
+                />
+                <StackN.Screen
+                  name="Wishlist"
+                  component={Wishlist}
+                  options={{
+                    title: 'Wishlist',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        titleCenter="Tradly Store"
+                        iconSearch={false}
+                        heartCart={true}
+                        tagsSearch={true}
+                        iconLeft={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="Cart"
+                  component={Cart}
+                  options={{
+                    title: 'Cart',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        titleCenter="My Cart"
+                        iconSearch={false}
+                        heartCart={true}
+                        iconLeft={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="NewAddress"
+                  component={NewAddress}
+                  options={{
+                    title: 'NewAddress',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        titleCenter="Add a New Address"
+                        iconSearch={false}
+                        heartCart={true}
+                        iconLeft={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="Payment"
+                  component={Payment}
+                  options={{
+                    title: 'Payment',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        titleCenter="Payment Option"
+                        iconSearch={false}
+                        heartCart={true}
+                        iconLeft={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="AddCard"
+                  component={AddCard}
+                  options={{
+                    title: 'AddCard',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        titleCenter="Add Card"
+                        iconSearch={false}
+                        heartCart={true}
+                        iconLeft={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="CheckoutSuccess"
+                  component={CheckoutSuccess}
+                  options={{
+                    title: 'CheckoutSuccess',
+                    headerShown: true,
+                    header: ({navigation, route, options}) => (
+                      <HeaderBottomTab
+                        title="Order Details"
+                        iconSearch={false}
+                        heartCart={true}
+                        iconLeft={false}
+                        closeRight={true}
+                      />
+                    ),
+                  }}
+                />
+                <StackN.Screen
+                  name="CreateStore"
+                  component={CreateStore}
+                  options={{
+                    title: 'CreateStore',
+                    headerShown: false
+                  }}
+                />
+                <StackN.Screen
+                  name="AddProduct"
+                  component={AddProduct}
+                  options={{
+                    headerShown: false
+                  }}
+                />
+                <StackN.Screen
+                  name="EditProfile"
+                  component={EditProfile}
+                  options={{
+                    headerShown: false
+                  }}
+                />
+              </StackN.Navigator>
+            </NavigationContainer>
+            <Dashboard />
+          </MenuState>
         </UserState>
       </NativeBaseProvider>
     </>

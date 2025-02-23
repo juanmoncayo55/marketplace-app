@@ -55,7 +55,7 @@ const Login = () => {
 	const [passwordRegister, setPasswordRegister] = useState("123");
 	const [passwordRegisterRe, setPasswordRegisterRe] = useState("123");
 
-	const {setUserLogued, user} = useContext(UserContext);
+	const {setUserLogued, user, userIsLogued} = useContext(UserContext);
 
 
 	//Navigation
@@ -105,29 +105,26 @@ const Login = () => {
 
 			//token en AsyncStorage
 			//await AsyncStorage.setItem("token", tokenLogin);
+
 			await AsyncStorage.setItem("tokenLogin", tokenLogin);
 
+			//decodifico el token que me envia el servidor
+			const decode = jwtDecode(tokenLogin);
+			//inserto el objeto con los datos personales del usuario logueado
+			setUserLogued( {...decode, token: tokenLogin} )
+			userIsLogued(true)
 			if(msg){
-				//decodifico el token que me envia el servidor
-				const decode = jwtDecode(tokenLogin);
-
-				console.log("Token login: ", user);
-
-				//inserto el objeto con los datos personales del usuario logueado
-				setUserLogued( {...decode, token: tokenLogin} )
-
 				//let userL = JSON.parse(await AsyncStorage.getItem("user-logued"));
-				console.log(user)
-
-				navigation.navigate("HomeDashboard")
+				setIsDisabledLoginBtn(false)
+				//navigation.navigate("HomeDashboard")
 			}
 
 		} catch(e) {
 			// statements
+			console.log(e)
 			toast.show({
 				description: e.message
 			});
-		} finally {
 			setIsDisabledLoginBtn(false)
 		}
 	}

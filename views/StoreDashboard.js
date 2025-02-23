@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import { StyleSheet, Dimensions, ScrollView, Animated } from 'react-native'
 import { Text, View, Box, Flex, Button, VStack, HStack, Stack, Center, Pressable, Input, Icon, AspectRatio, Image, Heading, AlertDialog, PresenceTransition, Skeleton, useToast } from "native-base";
 import {useNavigation} from "@react-navigation/native";
-import {useQuery, useMutation} from "@apollo/client"
+import {useQuery, useMutation, ApolloCache} from "@apollo/client"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons  from "react-native-vector-icons/Ionicons";
 import globalStyles from "../styles/globalStyles.js";
@@ -11,7 +11,8 @@ import UserContext from '../context/user/userContext.js';
 import AddProduct from './store/AddProduct.js';
 import { 
 	GET_STORE,
-	GET_PRODUCTS
+	GET_PRODUCTS,
+	GET_ALL_PRODUCTS
 } from '../gql/queries.js';
 import { 
 	REMOVE_STORE,
@@ -21,7 +22,6 @@ import {
 const { width, height } = Dimensions.get('window'); //Dimensiones del celular
 
 const StoreDashboard = () => {
-
 	//Primero se delcara los useRef y useState
 	const cancelRef = React.useRef(null);
   const [showScreenAddProduct, setShowScreenAddProduct] = useState(false);
@@ -79,13 +79,22 @@ const StoreDashboard = () => {
 					store: storeData?.getStore?.id
 				}
 			});
+
+			const {getAllProducts} = cache.readQuery({
+				query: GET_ALL_PRODUCTS
+			});
+
+
 			cache.writeQuery({
 				query: GET_PRODUCTS,
 				skip: !storeData?.getStore,
 				variables: {
 					store: storeData?.getStore?.id
 				},
-				data: {getProducts: getProducts.filter(product => product.id !== context.variables.id)}
+				data: {
+					getProducts: getProducts.filter(product => product.id !== context.variables.id),
+					getAllProducts: getAllProducts.filter(product => product.id !== context.variables.id)
+				}
 			});
 
 			//console.log("getProducts después al eliminar:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: storeData?.getStore?.id } })); // <-- Debug
@@ -102,6 +111,7 @@ const StoreDashboard = () => {
   const handleShowScreenAddProduct = (_option = null, product = null) => {
   	if(_option){
   		console.log("Entro por forma de editar");
+  		console.log("product: ", product);
   		setShowScreenAddProduct(true);
   		setCurrentProduct(product);
   		//console.log(product)
@@ -117,7 +127,8 @@ const StoreDashboard = () => {
 	  	const data = await removeProduct({
 	  		variables: {
 	  			id: id
-	  		}
+	  		},
+	  		refetchQueries: [{ query: GET_ALL_PRODUCTS }]
 	  	});
 
 	  	toast.show({
@@ -325,7 +336,6 @@ const StoreDashboard = () => {
   		)
   	}
   }
-
 	return (
 		<View flex={1} bgColor="#F6F9FF">
 			<HeaderBottomTab title="My Store" />

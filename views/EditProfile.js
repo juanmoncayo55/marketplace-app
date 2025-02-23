@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {ScrollView, StyleSheet, BackHandler} from "react-native";
+import {ScrollView, StyleSheet, BackHandler,Keyboard } from "react-native";
 import {View, Text, VStack, Box, Center, Heading, FormControl, Stack, Input, Button, Toast, Image, Actionsheet, Pressable, useDisclose, Icon, Spinner} from "native-base";
 import { gql, useMutation } from "@apollo/client";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,8 @@ import RNFS from 'react-native-fs';
 
 import globalStyles from "../styles/globalStyles";
 import UserContext from "../context/user/userContext";
+import MenuContext from "../context/menu/menuContext";
+import HeaderBottomTab from "../components/HeaderBottomTab";
 
 const UPDATE_USER_INFORMATION = gql`
   mutation updateUserInformation($input: UserEditInput, $email: String){
@@ -31,6 +33,7 @@ const UPLOAD_IMAGE = gql`
 const GET_USER = gql`
   mutation getUser($email: String) {
     getUser(email: $email) {
+      id
       lastName
       firstName
       email
@@ -45,7 +48,8 @@ const GET_USER = gql`
 const EditProfile = () => {
 
   //context user
-  const {user, setUserLogued, hideHeaderDash} = useContext(UserContext);
+  const {user, setUserLogued, setHideMenuDash} = useContext(UserContext);
+  const {screenEditProfile, isVisibleEditProfile} = useContext(MenuContext);
 
   //mutation
   const [updateUserInformation] = useMutation(UPDATE_USER_INFORMATION);
@@ -58,6 +62,7 @@ const EditProfile = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [uriImage, setUriImage] = useState("");
   const [pausePreview, setPausePreview] = useState(false);
   const [fotoShow, setFotoShow] = useState(false);
   const [isOpenSheet, setIsOpenSheet] = useState(false);
@@ -81,9 +86,11 @@ const EditProfile = () => {
     setPausePreview(true)
     setFotoShow(true)
     hideHeaderDash(false)
+    setHideMenuDash(false)
   }
 
   useEffect(() => {
+    setHideMenuDash(true)
     BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButtonClick);
@@ -93,21 +100,21 @@ const EditProfile = () => {
   const handleSubmit = async () => {
     console.log("Envia envia")
 
-    if(
+    /*if(
       !firstName ||
       !lastName ||
       !email
     ){
       setMessage("Todos los campos son obligatorios");
       return;
-    }
+    }*/
 
     Keyboard.dismiss();
 
     try{
       const {data} = await updateUserInformation({
         variables: {
-          email,
+          email: user.email,
           input: {
             firstName,
             lastName
@@ -146,6 +153,7 @@ const EditProfile = () => {
           const {data} = result;
           //setUserLogued(data.uploadAvatarUser.user)
           if(data.uploadAvatarUser.message){
+            setUriImage(source);
             console.log("adata await.. ", data.uploadAvatarUser.message)
             setChangedData(true)
             setLoadedPicture(false)
@@ -236,11 +244,22 @@ const EditProfile = () => {
     });
   }
 
+  const actionRequired = () => {
+    isVisibleEditProfile(false)
+  }
+
   const {isOpen, onOpen, onClose} = useDisclose()
 
   return(
     <>
       <View style={{backgroundColor: "#FFF", flex: 1}}>
+        <HeaderBottomTab
+          titleCenter="Edit Profile"
+          iconSearch={false}
+          heartCart={true}
+          iconLeft={true}
+          actionRequired={actionRequired}
+        />
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
           <VStack bgColor="#F6F9FF" py="3">
             <Box style={styles.contenido} justifyContent="flex-start" alignItems="center" gap="4" px={"3"}>
@@ -252,7 +271,7 @@ const EditProfile = () => {
                   
                   {
                     user.avatar ?
-                      <Image source={{ uri: user.avatar }} alt="Imagen perfil" w={"full"} h={"full"} rounded={"full"} />
+                      <Image source={{ uri: uriImage || user.avatar }} alt="Imagen perfil" w={"full"} h={"full"} rounded={"full"} />
                     : <Text color="#33907C" fontFamily="productSans" fontWeight="bold" fontSize="6xl" style={{lineHeight: 75}}>J</Text>
                   }
 
@@ -277,7 +296,7 @@ const EditProfile = () => {
                   placeholderTextColor="#4F4F4F"
                   size="lg"
                   focusOutlineColor="#4F4F4F"
-                  value={user.firstName}
+                  value={firstName || user.firstName}
                   onChangeText={text => setFirstName(text)}
                 />
               </Stack>
@@ -291,7 +310,7 @@ const EditProfile = () => {
                   placeholderTextColor="#4F4F4F"
                   size="lg"
                   focusOutlineColor="#4F4F4F"
-                  value={user.lastName}
+                  value={lastName || user.lastName}
                   onChangeText={text => setLastName(text)}
                 />
               </Stack>
@@ -305,7 +324,7 @@ const EditProfile = () => {
                   placeholderTextColor="#4F4F4F"
                   size="lg"
                   focusOutlineColor="#4F4F4F"
-                  value={user.email}
+                  value={email || user.email}
                   onChangeText={text => setEmail(text)}
                 />
               </Stack>

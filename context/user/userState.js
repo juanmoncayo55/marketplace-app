@@ -7,7 +7,8 @@ import {
     CLEAN_STATE_USER,
 	USUARIO_LOGUEADO,
 	VIEW_HEADER_DASH,
-	HIDE_MENU_DASH
+	HIDE_MENU_DASH,
+	IS_LOGUED_USER
 } from "../../types/";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,7 +22,8 @@ const UserState = props => {
 	const initialState = {
 		user: null,
 		hide: false,
-		hideMenuDash: false
+		hideMenuDash: false,
+		isLoguedUser: false
 	}
 
 
@@ -65,16 +67,25 @@ const UserState = props => {
 		})
 	}
 
+	const userIsLogued = (value) => {
+		dispatch({
+			type: IS_LOGUED_USER,
+			payload: value
+		})
+	}
+
 	return (
 		<UserContext.Provider
 			value={{
 				user: state.user,
 				hide: state.hide,
 				hideMenuDash: state.hideMenuDash,
+				isLoguedUser: state.isLoguedUser,
 				setUserLogued,
 				cleanUserState,
 				hideHeaderDash,
-				setHideMenuDash
+				setHideMenuDash,
+				userIsLogued
 			}}
 		>
 			{props.children}

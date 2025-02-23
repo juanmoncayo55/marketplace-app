@@ -2,7 +2,8 @@ import {
   CLEAN_STATE_USER,
 	USUARIO_LOGUEADO,
 	VIEW_HEADER_DASH,
-	HIDE_MENU_DASH
+	HIDE_MENU_DASH,
+	IS_LOGUED_USER
 } from "../../types/";
 
 export default (state, action) => {
@@ -26,6 +27,11 @@ export default (state, action) => {
 			return {
 				...state,
 				hideMenuDash: action.payload
+			}
+		case IS_LOGUED_USER:
+			return {
+				...state,
+				isLoguedUser: action.payload
 			}
 		default:
 			return state;

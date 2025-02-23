@@ -7,11 +7,13 @@ Icon } from "native-base";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as RootNavigation from '../helpers/RootNavigation.js';
 import UserContext from "../context/user/userContext.js";
+import MenuContext from "../context/menu/menuContext.js";
 
 const Dashboard = () => {
   const [selected, setSelected] = useState(0);
 
-  const {user, hide, hideMenuDash} = useContext(UserContext);
+  const {user, hide, hideMenuDash, isLoguedUser} = useContext(UserContext);
+  const {hideBottomMenu} = useContext(MenuContext);
 
   useEffect(() => {
     if(user){
@@ -25,7 +27,7 @@ const Dashboard = () => {
     () => setSelected(0);
   }, [])
 
-  return user == null || hide || hideMenuDash ? null : (
+  return !isLoguedUser || hide || hideMenuDash || hideBottomMenu ? null : (
     <Box bg="white" width="100%" alignSelf="center" justifySelf="end">
       
       <HStack bg="white" alignItems="center" safeAreaBottom shadow={6}>

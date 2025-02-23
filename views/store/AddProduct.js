@@ -17,7 +17,8 @@ import {
 } from '../../gql/mutation';
 import { 
 	GET_CATEGORIES,
-	GET_PRODUCTS
+	GET_PRODUCTS,
+	GET_ALL_PRODUCTS
 } from '../../gql/queries';
 
 const AddProduct = ({
@@ -28,14 +29,14 @@ const AddProduct = ({
 	currentProduct
 }) => {
 
-	const [productName, setProductName] = useState("asdasdasd");
-	const [productCategory, setProductCategory] = useState("asdasdasd");
-	const [productPrice, setProductPrice] = useState("23423");
-	const [productOfferPrice, setProductOfferPrice] = useState("23424");
-	const [productLocationDeta, setProductLocationDeta] = useState("sdfsdfsdf");
-	const [productProductDescription, setProductProductDescription] = useState("sdfsdfsdf");
-	const [productCondition, setProductCondition] = useState("sdfsdfsdf");
-	const [productPriceType, setProductPriceType] = useState("sdfsdfsdfsdfsdfsdf");
+	const [productName, setProductName] = useState("");
+	const [productCategory, setProductCategory] = useState("");
+	const [productPrice, setProductPrice] = useState("");
+	const [productOfferPrice, setProductOfferPrice] = useState("");
+	const [productLocationDeta, setProductLocationDeta] = useState("");
+	const [productProductDescription, setProductProductDescription] = useState("");
+	const [productCondition, setProductCondition] = useState("");
+	const [productPriceType, setProductPriceType] = useState("");
 	const [productAdditional, setProductAdditional] = useState("");
 	const [tagsCategories, setTagsCategories] = useState([]);
 	const [resourcesImages, setResourcesImages] = useState([]);
@@ -53,6 +54,20 @@ const AddProduct = ({
 			const newImages = currentProduct.imageGallery.map(item => ({ uri: item.url }));
     	setCurrentImgProduct(newImages)
     	setRscImgFront(newImages)
+		}
+
+		if(currentProduct){
+			setProductName(currentProduct.title)
+			
+			setProductPrice(currentProduct.precie+"")
+			setProductOfferPrice(currentProduct.discount+"")
+			setProductLocationDeta(currentProduct.location)
+			setProductProductDescription(currentProduct.description)
+			setProductCondition(currentProduct.condition)
+			setProductPriceType(currentProduct.priceType)
+			setTagsCategories(currentProduct.aditionalDetail)
+			/*
+			setProductCategory()*/
 		}
 
 		return () => setRscImgFront([])
@@ -102,19 +117,28 @@ const AddProduct = ({
 					store: store.id
 				}
 			});
+
+			const {getAllProducts} = cache.readQuery({
+				query: GET_ALL_PRODUCTS
+			});
+			//refetchQueries
+
 			cache.writeQuery({
 				query: GET_PRODUCTS,
 				variables: {
 					store: store.id
 				},
-				data: { getProducts: getProducts.concat([createProduct]) }
+				data: { 
+					getProducts: getProducts.concat([createProduct]),
+					getAllProducts: getAllProducts.concat([createProduct])
+				}
 			})
 		}
 	});
 
 	//mutation edit product
 	const [updateProduct] = useMutation(UPDATE_PRODUCT, {
-		update(cache, { data: {updateProduct} }){
+		update(cache, { data: {updateProduct} }, { variables }){
 			const {getProducts} = cache.readQuery({ 
 				query: GET_PRODUCTS,
 				variables: {
@@ -122,9 +146,15 @@ const AddProduct = ({
 				}
 			});
 
+			console.log("asjdbkajksdbjkasd", variables)
+
+			const {getAllProducts} = cache.readQuery({
+				query: GET_ALL_PRODUCTS
+			});
+
 			const productUpdates = getProducts.map(product => {
 				if(product.id === updateProduct.id) {
-					console.log(product)
+					console.log("productUpdates Product: ", product)
 					/*const urisAEliminar = saveImgDelete.map(obj => obj.uri);
 					const nuevoArrayDeObjetos = updateProduct.imageGallery.filter(objeto => !urisAEliminar.includes(objeto.uri));
 					let nuevoProductoActualizado = { ...updateProduct, imageGallery: nuevoArrayDeObjetos }*/
@@ -133,15 +163,31 @@ const AddProduct = ({
 				return product;
 			})
 
+			console.log("Mi prueba: ", getProducts.filter(pr => updateProduct.id === pr.id))
+			console.log("productUpdates: ", productUpdates);
+
+
 			cache.writeQuery({
 				query: GET_PRODUCTS,
 				variables: {
 					store: store.id
 				},
-				data: {getProducts: productUpdates}
+				data: {
+					getProducts: getProducts.filter(pr => pr.id === updateProduct.id ? updateProduct : pr),
+					getAllProducts: getAllProducts.filter(pr => pr.id === updateProduct.id ? updateProduct : pr)
+				}
 			})
 
-			//console.log("getProducts después:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: store.id } })); // <-- Debug
+			//console.log("productUpdates: ", productUpdates);
+
+			/*cache.writeQuery({
+				query: GET_ALL_PRODUCTS,
+				data: {getAllProducts: productUpdates}
+			})
+
+			console.log("getAllProducts después:", cache.readQuery({ query: GET_ALL_PRODUCTS }));*/
+
+			console.log("getProducts después:", cache.readQuery({ query: GET_PRODUCTS, variables: { store: store.id } })); // <-- Debug
 		}
 	});
 
@@ -267,7 +313,8 @@ const AddProduct = ({
 					files:{
 						resourcesImages
 					}
-				}
+				},
+				refetchQueries: [{ query: GET_ALL_PRODUCTS }]
 			});
 
 			console.log(data)
@@ -285,7 +332,7 @@ const AddProduct = ({
 		  return img.uri && !img.uri.includes("base64");
 		});
 
-		console.log({
+		console.log("Datos a enviar", {
   		id: currentProduct.id,
 			input:{
 				title: productName,
@@ -307,6 +354,11 @@ const AddProduct = ({
 		})
 
 		try{
+			const tags = tagsCategories.map(tg => {
+
+				const {__typename, ...restoTags} = tg
+				return restoTags
+			})
 		  const data = await updateProduct({
 		  	variables:{
 		  		id: currentProduct.id,
@@ -320,21 +372,20 @@ const AddProduct = ({
 						priceType: productPriceType,
 						category: productCategory,
 						location:productLocationDeta,
-						aditionalDetail:tagsCategories,
+						aditionalDetail:tags,
 						store: store.id
 					},
 					files:{
 						resourcesImages
 					},
 					existsImage: objetosFiltrados
-				}
+				},
+				refetchQueries: [{ query: GET_ALL_PRODUCTS }]
 		  });
-
-		  console.log(data)
 
 		  handleHideScreenAddPorduct()
 		} catch(error) {
-		  console.log("Error al actualizar el usuario: ", error);
+		  console.log("Error al actualizar el producto: ", error);
 		}
 	}
 
@@ -349,8 +400,9 @@ const AddProduct = ({
 		setRscImgFront([])
 		setSaveImgDelete([])
 	}
-
 	const {isOpen, onOpen, onClose} = useDisclose()
+
+	//console.log(currentProduct.category);
 
 	return (
 		<View bgColor="bgViews" style={{flex: 1}}>
@@ -459,7 +511,9 @@ const AddProduct = ({
 								value={productPriceType}
 								changeValue={setProductPriceType}
 							/>
-							<Stack mx="3" mt="4">
+		        </FormControl>
+		        <VStack>
+		        	<Stack mx="3" mt="4">
 								{
 									tagsCategories.length > 0 ?
 
@@ -501,15 +555,15 @@ const AddProduct = ({
 									dataFilter={[]}
 								/>
 							</Stack>
-		        </FormControl>
+		        </VStack>
 		        {
 		        	(!loading && !error) && (
 				        <FormControl isReadOnly>
 				        	<View mx={"3"} mt={"4"}>
-					        	<Select selectedValue={currentProduct !== null ? currentProduct[0] : productCategory} minWidth="200" accessibilityLabel="Choose Category" placeholder="Choose Category" onValueChange={item => setProductCategory(item)} variant={"underlined"} style={{fontSize: 14, color: "#4F4F4F"}} _selectedItem={{
+					        	<Select selectedValue={productCategory} minWidth="200" accessibilityLabel="Choose Category" placeholder="Choose Category" onValueChange={item => setProductCategory(item)} variant={"underlined"} style={{fontSize: 14, color: "#4F4F4F"}} _selectedItem={{
 								        bg: "greenPrimary",
 								        color: "white"
-								      }}>
+								      }} defaultValue="asdas">
 									      {
 									      	data.getCategories.map((item, index) => (
 														<Select.Item key={index} label={item.name} value={item.id} />
